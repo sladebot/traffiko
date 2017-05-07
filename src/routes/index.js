@@ -1,14 +1,12 @@
 import CoreLayout from '../layouts/CoreLayout'
-import LocationDash from './LocationDash'
+import Dash from './LocationDash'
 // import CauseDashRoute from './CauseDash'
 
-export const createRoutes = (store) => ({
+export default (store) => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: LocationDash,
+  indexRoute: Dash,
   childRoutes: [
     // CauseDashRoute(store)
   ]
 })
-
-export default createRoutes

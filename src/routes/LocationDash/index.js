@@ -1,5 +1,5 @@
-import LocationDashView from './components/LocationDashView'
+import LocationDashContainer from './containers/LocationDashContainer'
 
 export default {
-  component: LocationDashView
+  component: LocationDashContainer
 }
