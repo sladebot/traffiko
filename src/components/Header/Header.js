@@ -1,5 +1,6 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
+import Sidebar from '../Sidebar'
 import './Header.scss'
 
 export const Header = () => (
@@ -10,22 +11,13 @@ export const Header = () => (
         <span className="mdl-layout-title">Traffic Accident Data Analytics</span>
         <div className="mdl-layout-spacer"></div>
         <nav className="mdl-navigation mdl-layout--large-screen-only">
-          <a className="mdl-navigation__link" href="">Link</a>
-          <a className="mdl-navigation__link" href="">Link</a>
-          <a className="mdl-navigation__link" href="">Link</a>
-          <a className="mdl-navigation__link" href="">Link</a>
+          <Link to="/location" className="mdl-navigation__link"> Location Dashboard </Link>
+          <Link to="/hypothesis" className="mdl-navigation__link"> Hypothesis </Link>
+          
         </nav>
       </div>
     </header>
-    <div className="mdl-layout__drawer">
-      <span className="mdl-layout-title">Traffic Accident Data Analytics</span>
-      <nav className="mdl-navigation">
-        <a className="mdl-navigation__link" href="">Location Wise Analytics</a>
-        <a className="mdl-navigation__link" href="">Link</a>
-        <a className="mdl-navigation__link" href="">Link</a>
-        <a className="mdl-navigation__link" href="">Link</a>
-      </nav>
-    </div>
+    <Sidebar />
 
       
   {/*<header className="mdl-layout__header mdl-layout__header mdl-color--blue-grey-900">
