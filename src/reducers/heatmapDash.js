@@ -16,7 +16,7 @@ export default function heatMapReducer(state=initialState, action) {
       return {...state, fetching: false, error: action.payload}
     }
     case "FETCH_HEATMAP_DATA_FULFILLED": {
-      console.log("Got event - FETCH_HEATMAP_DATA_FULFILLED")
+      console.log("Got event - " + action.payload)
       return {
         ...state,
         fetching: false,

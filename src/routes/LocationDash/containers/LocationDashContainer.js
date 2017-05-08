@@ -19,7 +19,7 @@ import LocationDash from '../components/LocationDash'
 
 const mapStateToProps = ({ heatMap }) => {
   const {heatmap_data, top_accident_reason_bar_data, borough_data} = heatMap
-  console.log("Mapping state to props !" + JSON.stringify(heatmap_data))
+  console.log("Mapping state to props !")
   return {
     heatmap_data,
     top_accident_reason_bar_data,
