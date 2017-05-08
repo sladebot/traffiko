@@ -1,12 +1,14 @@
 import React from 'react'
 import HeatMap from './HeatMap'
+// import { fetchHeatMapData } from '../actions/heatMapActions'
 
-export const LocationDash = ({heatmap_data, accident_reasons, borough_data}) => (
+export const LocationDash = ({heatmap_data, accident_reasons_data, borough_data}) => (
   <div className="mdl-grid">
     <div className="mdl-cell mdl-cell--6-col">
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--12-col" id="heatmap">
-          <HeatMap data={heatmap_data} />    
+          <HeatMap
+            data={heatmap_data} />    
         </div>
       </div>
     </div>

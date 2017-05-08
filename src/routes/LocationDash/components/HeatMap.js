@@ -48,7 +48,7 @@ class HeatMap extends Component {
         mapStyle='mapbox://styles/mapbox/dark-v9'
         onChangeViewport={this._onChangeViewport.bind(this)}
         mapboxApiAccessToken={MAPBOX_TOKEN}>
-        <DeckGLOverlay 
+        <DeckGLOverlay
           viewport={viewport}
           data={data || []}
           />
