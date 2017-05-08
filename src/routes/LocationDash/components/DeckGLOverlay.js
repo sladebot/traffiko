@@ -66,7 +66,7 @@ export default class DeckGLOverlay extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data.length !== this.props.data.length) {
+    if (nextProps.heatmap_data.length !== this.props.heatmap_data.length) {
       this._animate();
     }
   }
@@ -105,18 +105,21 @@ export default class DeckGLOverlay extends Component {
   }
 
   render() {
-    const {viewport, data, radius, coverage, upperPercentile} = this.props;
-
-    if (!data) {
+    const {viewport, heatmap_data, radius, coverage, upperPercentile} = this.props;
+    // console.log('IN DECK GL - ' + JSON.stringify(heatmap_data))
+    if (!heatmap_data) {
       return null;
     }
+    const data = heatmap_data
+
+    // console.log("HEX DATA LAYER - " + JSON.stringify(data))
 
     const layers = [
       new HexagonLayer({
         id: 'heatmap',
         colorRange,
         coverage,
-        data,
+        heatmap_data,
         elevationRange: [0, 3000],
         elevationScale: this.state.elevationScale,
         extruded: true,

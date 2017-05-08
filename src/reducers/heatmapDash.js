@@ -16,12 +16,12 @@ export default function heatMapReducer(state=initialState, action) {
       return {...state, fetching: false, error: action.payload}
     }
     case "FETCH_HEATMAP_DATA_FULFILLED": {
-      const filter_heatmap_data = response.data.data.map(d => ([Number(d[0]), Number(d[1])]))
-      dispatch({type: 'FETCH_HEATMAP_DATA_FULFILLED', payload: filter_heatmap_data})
+      const filter_heatmap_data = action.payload.map(d => ([Number(d[0]), Number(d[1])]))
       return {
+        ...state,
         fetching: false,
         fetched: true,
-        heatmap_data: action.payload
+        heatmap_data: filter_heatmap_data
       }
     }
   }
