@@ -10,10 +10,9 @@ class HeatMap extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      ...this.state,
       ...props,
       viewport: {
-        ...this.props.viewport
+        ...DeckGLOverlay.defaultViewport
       }
     }
   }
@@ -39,7 +38,8 @@ class HeatMap extends Component {
 
   render() {
     // console.log('Main props - ' + JSON.stringify(this.props))
-    const { heatmap_data, viewport } = this.props
+    const { heatmap_data } = this.props
+    const { viewport } = this.state
     // const  } = this.state
     // console.log("MAin Data - " + JSON.stringify(heatmap_data))
     return (

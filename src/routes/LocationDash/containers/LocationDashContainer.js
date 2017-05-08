@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchHeatMapData, fetchAccidentCauseData } from '../actions/heatMapActions'
 import HeatMap from '../components/HeatMap'
-import DeckGLOverlay from '../components/DeckGLOverlay'
+// import DeckGLOverlay from '../components/DeckGLOverlay'
 import CauseBarChart from '../components/CauseBarChart'
 
 class LocationDash extends Component {
@@ -22,7 +22,6 @@ class LocationDash extends Component {
           <div className="mdl-grid">
             <div className="mdl-cell mdl-cell--12-col" id="heatmap">
               <HeatMap
-                viewport={{...DeckGLOverlay.defaultViewport}}
                 heatmap_data={heatmap_data} />
             </div>
           </div>
