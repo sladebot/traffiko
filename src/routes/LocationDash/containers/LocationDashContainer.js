@@ -9,7 +9,6 @@ class LocationDash extends Component {
   componentWillMount() {
     const { fetchHeatMapData, fetchAccidentCauseData } = this.props
     fetchHeatMapData()
-    debugger
     fetchAccidentCauseData()
   }
 
@@ -28,12 +27,18 @@ class LocationDash extends Component {
         </div>
         <div className="mdl-cell mdl-cell--6-col">
           <div className="mdl-grid mdl-color--teal-600">
-            <div className="mdl-cell mdl-cell--12-col">
-              <CauseBarChart
-                title="Top 10 Causes of accidents"
-                height={400}
-                width={600}
-                accident_reasons_data={accident_reasons_data}/>
+            <div className="mdl-cell mdl-cell--12-col ">
+              <div className="graph-content">
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                  <div class="mdl-card__title">
+                    <CauseBarChart
+                      title="Top 10 Causes of accidents"
+                      height={400}
+                      width={600}
+                      accident_reasons_data={accident_reasons_data}/>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="mdl-cell mdl-cell--12-col">
               {/*<Pie />*/}

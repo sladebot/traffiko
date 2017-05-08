@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const Accident = require('../models/accident')
+const Cause = require('../models/cause')
 const Map = require('../models/map')
 
 const all = (req, res) => {
@@ -52,7 +53,20 @@ const heatMapLocations = (req, res) => {
 
 const getCauseBarData = (req, res) => {
   console.log(`Starting query at = ${Date.now}`)
-  return res.json([{cause: 'A', count: 10}, {cause: 'B', count: 50}])
+  Cause.find({}).select({_id: 0, cause: 1, total: 1, killed: 1, injured: 1})
+    .exec((err, causes) => {
+      if(err) {
+        return res.status(500).json({error: {msg: 'Something went wrong', payload: err}, data: null })
+      }
+      const irrelevant_causes = ['', 'Unspecified', 'Other Vehicular']
+      const sorted_causes = _.chain(causes)
+        .filter(function(o) {return !irrelevant_causes.includes(o.cause) })
+        .sortBy([function(o) {return o.total}])
+        .reverse()
+        .slice(0, 10)
+      
+      return res.status(200).json(sorted_causes)
+    })
 }
 
 module.exports = {
