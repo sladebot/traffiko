@@ -1,16 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from '../../components/Header'
-// import NavBar from '../../components/Navbar'
+import Sidebar from '../../components/Sidebar'
 import './CoreLayout.scss'
 import '../../styles/core.scss'
 
 export const CoreLayout = ({ children }) => (
-  <div className='container text-center'>
+  <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <Header />
-    <div className='core-layout__viewport'>
-      {children}
-    </div>
+    <Sidebar />
+    <main className='mdl-layout__content'>
+      <div className="page-content">
+        {children}
+      </div>
+    </main>
   </div>
 )
 
