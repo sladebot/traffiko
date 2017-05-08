@@ -5,7 +5,6 @@ export function fetchHeatMapData(filter={'type': null,'timeframe': null}) {
     let filterParams = Object.keys(filter).map(key => `${key}=${filter[key]}`).join('&')
     axios.get(`/api/v1/heatmap?${filterParams}`)
       .then(response => {
-        console.log("Got data ...")
         dispatch({type: 'FETCH_HEATMAP_DATA_FULFILLED', payload: response.data})
       })
       .catch(err => {

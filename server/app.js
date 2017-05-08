@@ -4,7 +4,17 @@ const express       = require('express'),
   webpack           = require('webpack'),
   webpackConfig     = require('../config/webpack.config'),
   project           = require('../config/project.config'),
-  compress          = require('compression')
+  compress          = require('compression'),
+  session           = require('express-session')
+
+const db = require('./db')
+const controllers = db.controllers
+const dbSession = db.session
+const connect = db.connect
+
+const accidentsController = controllers && controllers.accidents
+
+connect()
 
 const app = express()
 
@@ -29,10 +39,36 @@ if(project.env === 'development') {
 
   app.use(express.static(project.paths.public()))
 
-  app.get('/api/v1/heatmap', (req, res) => {
-    res.set('content-type', 'application/json').status(200)
-    return res.json([[-73.9401,40.8163], [-73.892654,40.857395], [-73.9401,40.8163]])
-  })
+  let sessionStore = null
+
+  if(!dbSession) {
+    console.log('Something wrong with session')
+  } else {
+    sessionStore = dbSession()
+  }
+
+  const sess = {
+    resave: false,
+    saveUninitialized: false,
+    secret: 'Your Session Secret goes here',
+    proxy: true, // The "X-Forwarded-Proto" header will be used.
+    name: 'traffikoSessionId',
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+    store: sessionStore
+  }
+
+  app.use(session(sess))
+
+  // app.get('/api/v1/heatmap', (req, res) => {
+  //   res.set('content-type', 'application/json').status(200)
+  //   return res.json([[-73.9401,40.8163], [-73.892654,40.857395], [-73.9401,40.8163]])
+  // })
+
+  
+  app.get('/api/v1/heatmap', accidentsController.all)
 
   app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')
