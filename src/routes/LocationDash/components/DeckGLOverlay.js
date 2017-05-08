@@ -100,13 +100,13 @@ export default class DeckGLOverlay extends Component {
   }
 
   _initialize(gl) {
+    console.log(`Initializing`)
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
   }
 
   render() {
     const {viewport, heatmap_data, radius, coverage, upperPercentile} = this.props;
-    // console.log('IN DECK GL - ' + JSON.stringify(heatmap_data))
     if (!heatmap_data) {
       return null;
     }
@@ -119,7 +119,7 @@ export default class DeckGLOverlay extends Component {
         id: 'heatmap',
         colorRange,
         coverage,
-        heatmap_data,
+        data,
         elevationRange: [0, 3000],
         elevationScale: this.state.elevationScale,
         extruded: true,
