@@ -5,7 +5,7 @@ import heatMapReducer from './heatMapDash'
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     location: locationReducer,
-    heatMapReducer,
+    heatMap: heatMapReducer,
     ...asyncReducers
   })
 }

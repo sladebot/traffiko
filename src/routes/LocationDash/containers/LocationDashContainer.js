@@ -1,16 +1,30 @@
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { selectAccidentType } from '../actions/locationDash'
+import { fetchHeatMapData } from '../actions/heatMapActions'
 
 import LocationDash from '../components/LocationDash'
 
-const mapDispatchToProps = {
-  selectAccidentType: () => selectAccidentType()
+// const mapDispatchToProps = {
+//   fetchHeatMapData: () => fetchHeatMapData()
+// }
+
+// const mapStateToProps = ({heatmap_data, top_accident_reason_bar_data, borough_data}) => {
+//   console.log("Mapping state to props !")
+//   return {
+//     heatmap_data: heatmap_data,
+//     accident_reasons_data: top_accident_reason_bar_data,
+//     borough_data: borough_data
+//   }
+// }
+
+const mapStateToProps = ({ heatMap }) => {
+  const {heatmap_data, top_accident_reason_bar_data, borough_data} = heatMap
+  console.log("Mapping state to props !" + JSON.stringify(heatmap_data))
+  return {
+    heatmap_data,
+    top_accident_reason_bar_data,
+    borough_data
+  }
 }
 
-const mapStateToProps = ({heatmap_data, top_accident_reason_bar_data, borough_data}) => ({
-  heatmap_data: [[-73.9401,40.8163], [-73.892654,40.857395], [-73.9401,40.8163]],
-  accident_reasons_data: top_accident_reason_bar_data,
-  borough_data: borough_data
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocationDash)
+export default connect(mapStateToProps, { fetchHeatMapData })(LocationDash)

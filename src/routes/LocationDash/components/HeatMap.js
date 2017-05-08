@@ -15,7 +15,6 @@ class HeatMap extends Component {
         ...DeckGLOverlay.defaultViewport
       }
     }
-    console.log(`Setting default viewport to - ${JSON.stringify(this.state.viewport)}`)
   }
 
   componentDidMount() {
@@ -32,16 +31,15 @@ class HeatMap extends Component {
   }
 
   _onChangeViewport(viewport) {
-    console.log(`While viewport changing state -  ${JSON.stringify(this.state)}`)
     this.setState({
       viewport: {...this.state.viewport, ...viewport}
     })
   }
 
   render() {
-    console.log(`Starting to render`)
     const { data } = this.props
     const { viewport } = this.state
+    console.log('Passing data - ' + JSON.stringify(data))
     return (
       <MapGL 
         {...viewport}

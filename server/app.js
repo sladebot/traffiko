@@ -28,7 +28,13 @@ if(project.env === 'development') {
   }))
 
   app.use(express.static(project.paths.public()))
-  app.use('*', (req, res, next) => {
+
+  app.get('/api/v1/heatmap', (req, res) => {
+    res.set('content-type', 'application/json').status(200)
+    return res.json([[-73.9401,40.8163], [-73.892654,40.857395], [-73.9401,40.8163]])
+  })
+
+  app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')
     compiler.outputFileSystem.readFile(filename, (err, result) => {
       if(err) {
@@ -39,6 +45,7 @@ if(project.env === 'development') {
       res.end()
     })
   })
+
 } else {
   debug('Server is being run outside of live development mode, meaning it will')
 
