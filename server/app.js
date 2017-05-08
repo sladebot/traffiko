@@ -69,6 +69,7 @@ if(project.env === 'development') {
 
   
   app.get('/api/v1/heatmap', accidentsController.heatMapLocations)
+  app.get('/api/v1/cause_bar', accidentsController.getCauseBarData)
 
   app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')

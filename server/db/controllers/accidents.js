@@ -50,7 +50,13 @@ const heatMapLocations = (req, res) => {
     })
 }
 
+const getCauseBarData = (req, res) => {
+  console.log(`Starting query at = ${Date.now}`)
+  return res.json([{cause: 'A', count: 10}, {cause: 'B', count: 50}])
+}
+
 module.exports = {
   all,
+  getCauseBarData,
   heatMapLocations
 }

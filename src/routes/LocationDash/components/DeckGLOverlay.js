@@ -43,7 +43,7 @@ export default class DeckGLOverlay extends Component {
       maxZoom: 15,
       pitch: 40.5,
       height: 600,
-      width: 700,
+      width: 650,
       bearing: -27.396674584323023
     };
   }

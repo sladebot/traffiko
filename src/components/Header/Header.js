@@ -4,7 +4,7 @@ import { IndexLink, Link } from 'react-router'
 import './Header.scss'
 
 export const Header = () => (
-  <header className="mdl-layout__header mdl-color--teal-600">
+  <header className="mdl-layout__header mdl-color--blue-grey-800">
     <div className="mdl-layout__header-row">
       <span className="mdl-layout-title">Traffic Accident Data Analytics</span>
       <div className="mdl-layout-spacer"></div>

@@ -14,7 +14,7 @@ const config = {
   dir_server: 'server',
   dir_test: 'tests',
   server_host: ip.address(),
-  server_port: process.env.PORT || 1337,
+  server_port: process.env.PORT || 3000,
   mongodb_host: process.env.MONGODB_HOST || 'localhost',
   mongodb_port: process.env.MONGODB_PORT || 27017,
   mongodb_database: process.env.MONGODB_DATABASE || 'Accidents',

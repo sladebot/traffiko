@@ -1,14 +1,33 @@
 import axios from 'axios'
 
+function filterParams(filter) {
+  return Object.keys(filter).map(key => `${key}=${filter[key]}`).join('&')
+}
+
+
 export function fetchHeatMapData(filter={'type': null,'timeframe': null}) {
   return (dispatch) => {
-    let filterParams = Object.keys(filter).map(key => `${key}=${filter[key]}`).join('&')
-    axios.get(`/api/v1/heatmap?${filterParams}`)
+    let filteredParams = filterParams(filter)
+    axios.get(`/api/v1/heatmap?${filteredParams}`)
       .then(response => {
         dispatch({type: 'FETCH_HEATMAP_DATA_FULFILLED', payload: response.data.data})
       })
       .catch(err => {
         dispatch({type: 'FETCH_HEATMAP_DATA_REJECTED', payload: err})
+      })
+  }
+}
+
+export function fetchAccidentCauseData(filter={'type': null,'timeframe': null}) {
+  return (dispatch) => {
+    let filteredParams = filterParams(filter);
+    console.log('Calling api for bar chart!!')
+    axios.get(`/api/v1/cause_bar?${filteredParams}`)
+      .then(response => {
+        dispatch({type: 'FETCH_CAUSE_BAR_DATA_FULFILLED', payload: response.data})
+      })
+      .catch(err => {
+        dispatch({type: 'FETCH_CAUSE_BAR_DATA_REJECTED', payload: err})
       })
   }
 }

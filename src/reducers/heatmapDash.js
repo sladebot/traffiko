@@ -24,6 +24,17 @@ export default function heatMapReducer(state=initialState, action) {
         heatmap_data: filter_heatmap_data
       }
     }
+    case 'FETCH_CAUSE_BAR_DATA_FULFILLED': {
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        accident_reasons_data: action.payload
+      }
+    }
+    case 'FETCH_CAUSE_BAR_DATA_REJECTED': {
+      return {...state, fetching: false, error: action.payload}
+    }
   }
   return state
 }
