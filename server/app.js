@@ -20,6 +20,7 @@ const app = express()
 
 app.use(compress())
 
+
 if(project.env === 'development') {
   const compiler = webpack(webpackConfig)
 
@@ -70,6 +71,8 @@ if(project.env === 'development') {
   
   app.get('/api/v1/heatmap', accidentsController.heatMapLocations)
   app.get('/api/v1/cause_bar', accidentsController.getCauseBarData)
+  app.get('/api/v1/dashboard/borough_cause', accidentsController.getBoroughCauseDashboardData)
+  
 
   app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')

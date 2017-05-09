@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const Accident = require('../models/accident')
 const Cause = require('../models/cause')
+const BoroughCause = require('../models/borough_cause')
 const Map = require('../models/map')
 
 const all = (req, res) => {
@@ -16,7 +17,8 @@ const all = (req, res) => {
     }
     console.log('Got data')
     let data = null
-    if(global.all_accidents != null) {
+    if(global.all_accidents != undefined) {
+      console.log(`Serving from cache`)
       data = global.all_accidents
     } else {
       data = accidents
@@ -69,8 +71,28 @@ const getCauseBarData = (req, res) => {
     })
 }
 
+const getBoroughCauseDashboardData = (req, res) => {
+  console.log(`Starting query at = ${Date.now()}`)
+  let response = null
+  if(global.boroughCauseDashboardCachedResponse == undefined) {
+    BoroughCause.find({}).select({_id: 0, cause: 1, total: 1, killed: 1, injured: 1, borough: 1})
+      .exec((err, borough_causes) => {
+        if(err) {
+          return res.status(500).json({error: {msg: 'Something went wrong', payload: err}, data: null })
+        }
+        console.log(`Got data at = ${Date.now()}`)
+        global.boroughCauseDashboardCachedResponse = borough_causes
+        return res.status(200).json(borough_causes)
+      })
+  } else {
+    console.log(`Serving cached data`)
+    return res.status(200).json(global.boroughCauseDashboardCachedResponse)
+  }
+}
+
 module.exports = {
   all,
   getCauseBarData,
+  getBoroughCauseDashboardData,
   heatMapLocations
 }
