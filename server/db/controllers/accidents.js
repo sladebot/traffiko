@@ -75,7 +75,7 @@ const getBoroughCauseDashboardData = (req, res) => {
   console.log(`Starting query at = ${Date.now()}`)
   let response = null
   if(global.boroughCauseDashboardCachedResponse == undefined) {
-    BoroughCause.find({}).select({_id: 0, cause: 1, total: 1, killed: 1, injured: 1, borough: 1})
+    BoroughCause.find({}).select({_id: 1, cause: 1, total: 1, killed: 1, injured: 1, borough: 1})
       .exec((err, borough_causes) => {
         if(err) {
           return res.status(500).json({error: {msg: 'Something went wrong', payload: err}, data: null })

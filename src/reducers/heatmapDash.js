@@ -1,7 +1,7 @@
 const initialState = {
   heatmap_data: [],
   accident_reasons_data: [],
-  borough_data: [],
+  borough_cause_dashboard_data: [],
   fetching: false,
   fetched: false,
   error: null
@@ -33,6 +33,17 @@ export default function heatMapReducer(state=initialState, action) {
       }
     }
     case 'FETCH_CAUSE_BAR_DATA_REJECTED': {
+      return {...state, fetching: false, error: action.payload}
+    }
+    case 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_FULFILLED': {
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        borough_cause_dashboard_data: action.payload
+      }
+    }
+    case 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_REJECTED': {
       return {...state, fetching: false, error: action.payload}
     }
   }

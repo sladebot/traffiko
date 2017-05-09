@@ -31,3 +31,16 @@ export function fetchAccidentCauseData(filter={'type': null,'timeframe': null}) 
       })
   }
 }
+
+export function fetchBoroughCauseDashboard(filter={}) {
+  return (dispatch) => {
+    let filteredParams = filterParams(filter)
+    axios.get(`/api/v1/dashboard/borough_cause?${filteredParams}`)
+      .then(response => {
+        dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_FULFILLED', payload: response.data})
+      })
+      .catch(err => {
+        dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_REJECTED', payload: err})
+      })
+  }
+}
