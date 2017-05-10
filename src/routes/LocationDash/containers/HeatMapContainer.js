@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 // import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import MapGL from 'react-map-gl'
-import DeckGLOverlay from './DeckGLOverlay'
+import DeckGLOverlay from '../components/DeckGLOverlay'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibWpzaGluIiwiYSI6ImNqMXVkaXBiZTAwN3cycnBwcHF0N3MyOXkifQ.IyHqcYVK0COvUWFKnhcZGA'
 
-class HeatMap extends Component {
+class HeatMapContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      ...this.state,
       ...props,
       viewport: {
         ...DeckGLOverlay.defaultViewport
@@ -38,28 +39,25 @@ class HeatMap extends Component {
 
   render() {
     const { heatmap_data } = this.props
-    const { viewport } = this.state
+    console.log(`HEATMAP DATA IN CONTAINER - ${heatmap_data.length}`)
+    const viewport = this.state.viewport
+    debugger
     return (
-      <MapGL 
+      <MapGL
         {...viewport}
-        mapStyle='mapbox://styles/mapbox/dark-v9'
+        height={600}
+        width={700}
+        mapStyle="mapbox://styles/mapbox/dark-v9"
+		    perspectiveEnabled={true}
         onChangeViewport={this._onChangeViewport.bind(this)}
         mapboxApiAccessToken={MAPBOX_TOKEN}>
         <DeckGLOverlay
           viewport={viewport}
-          heatmap_data={heatmap_data || []}
+          heatmap_data={heatmap_data}
           />
         </MapGL>
     )
   }
 }
 
-// const mapStateToProps = ({ heatmap_data, viewport }) => {
-//   return {
-//     heatmap_data,
-//     viewport
-//   }
-// }
-
-export default HeatMap
-// export default connect(mapStateToProps)(HeatMap)
+export default HeatMapContainer

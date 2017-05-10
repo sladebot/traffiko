@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard } from '../actions/heatMapActions'
-import HeatMap from '../components/HeatMap'
-// import DeckGLOverlay from '../components/DeckGLOverlay'
+import HeatMapContainer from './HeatMapContainer'
 import CauseBarChart from '../components/CauseBarChart'
 import BoroughCauseDashboard from './BoroughCauseDashboard'
 
@@ -16,12 +15,13 @@ class LocationDash extends Component {
 
   render() {
     const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched } = this.props
+    console.log(`Data in redux container ${heatmap_data.length}`)
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
           <div className="mdl-grid">
             <div className="mdl-cell mdl-cell--12-col" id="heatmap">
-              <HeatMap
+              <HeatMapContainer
                 fetching={fetching}
                 fetched={fetched}
                 heatmap_data={heatmap_data} />

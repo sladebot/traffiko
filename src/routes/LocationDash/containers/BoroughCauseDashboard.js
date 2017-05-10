@@ -31,6 +31,10 @@ class BoroughCauseDashboard extends Component {
     return (
       <div>
         <div id="pieChart"></div>
+        {/*<Pie 
+          fetching={fetching}
+          fetched={fetched}
+          chartOptions={chartOptions}/>*/}
         <BarChart
           fetching={fetching}
           fetched={fetched}

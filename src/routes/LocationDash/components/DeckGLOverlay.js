@@ -106,11 +106,12 @@ export default class DeckGLOverlay extends Component {
 
   render() {
     const {viewport, heatmap_data, radius, coverage, upperPercentile} = this.props;
-    if (!heatmap_data) {
+    if (heatmap_data.length == 0) {
       return null;
     }
-    const data = heatmap_data
 
+    console.log(`Data in deckGL Component ==== ${heatmap_data.length}` )
+    const data = heatmap_data
 
     const layers = [
       new HexagonLayer({
@@ -119,7 +120,7 @@ export default class DeckGLOverlay extends Component {
         coverage,
         data,
         elevationRange: [0, 3000],
-        elevationScale: this.state.elevationScale,
+        elevationScale: 1,
         extruded: true,
         getPosition: d => d,
         lightSettings: LIGHT_SETTINGS,
