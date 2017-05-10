@@ -44,7 +44,7 @@ class CauseBarChart extends Component {
             <XAxis dataKey="cause" stroke="#FFFFFF" />
             <YAxis stroke="#FFFFFF" />
             <CartesianGrid />
-            <Tooltip cursor={{fill: '#F5F5F5', fillOpacity: '0.5', stroke: '#FFFFFF'}} fill="#FFFFFF" stroke="#FFFFFF" itemStyle={{color: '#FFFFFF'}} wrapperStyle={{'background-color': '#757575'}} />
+            <Tooltip cursor={{fill: '#F5F5F5', fillOpacity: '0.5', stroke: '#FFFFFF'}} fill="#FFFFFF" stroke="#FFFFFF" itemStyle={{color: '#FFFFFF'}} wrapperStyle={{'background': '#757575'}} />
             <Legend verticalAlign="top" wrapperStyle={{lineHeight: '40px'}} />
             <ReferenceLine y={0} stroke='#004D40' onChange={(e) => {console.log('Brushing')}}/>
             <Brush dataKey='cause' height={30} stroke="#FFFFFF"/>

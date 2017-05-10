@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 
 class Bar extends Component {
   render() {
-    const { keyId, index, xScaleFn, yScaleFn, width, height, fill="black", stroke="black", yMetric } = this.props
+    const { index, xScaleFn, yScaleFn, width, height, fill="black", stroke="black", yMetric } = this.props
     return (
-      <rect 
-        key={keyId}
+      <rect
         x={xScaleFn(index)}
         y={yScaleFn(yMetric)}
         width={width}

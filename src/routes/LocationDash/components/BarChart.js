@@ -5,13 +5,13 @@ import Spinner from 'react-spinkit'
 
 class BarChart extends Component {
   
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...this.state,
-      ...props
-    }
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     ...this.state,
+  //     ...props
+  //   }
+  // }
 
   _datasetBarChosen(datasetBarChart, cause="ALL") {
     const filtered = datasetBarChart
@@ -35,14 +35,7 @@ class BarChart extends Component {
 			barPadding : barPadding
 		}	
   }
-
-  // componentDidMount() {
-  //   console.log("Component mounted")
-  //   this.drawBarChart()
-  // }
   
-
-
   render() {
     const { fetching, fetched, borough_cause_dashboard_data, chartOptions={} } = this.props
 
@@ -67,24 +60,10 @@ class BarChart extends Component {
     const transform='translate('+margin.left+','+margin.top+')'
     const transformXAxis=`translate(${margin.left}, ${margin.top + height})`
     
-    
-    /*let backgroundRects = datasetBarSelected.map((d, i) => {
-      return (
-        <rect 
-          key={d["_id"]}
-          x={xScale(i)}
-          width={60}
-          y={margin.top - margin.bottom}
-          height={chartOptions.height}
-          fill="#596580"
-          />
-      )
-    })*/
-    
     let foregroundRects = datasetBarSelected.map((d, i) => {
       return (
         <Bar 
-          keyId={d['_id']}
+          key={d['_id']}
           xScaleFn={xScale}
           yScaleFn={yScale}
           index={i}
@@ -121,7 +100,7 @@ class BarChart extends Component {
       )
     })
 
-    if(this.props.fetched) {
+    if(fetched) {
       return (
         <div>
           <svg id='barChart' 
@@ -129,7 +108,6 @@ class BarChart extends Component {
             height={(height + margin.top + margin.bottom)}>
             stroke='white'
             <g transform={transform}>
-              {/*{backgroundRects}*/}
               {foregroundRects}
               {yLabels}
             </g>
