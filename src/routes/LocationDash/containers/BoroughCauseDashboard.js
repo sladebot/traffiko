@@ -10,10 +10,7 @@ class BoroughCauseDashboard extends Component {
     this.state = {
       ...this.state,
       ...props,
-      barChartOptions: {
-        height: 400,
-        width: 550
-      }
+      barChartOptions: {}
     }
   }
 

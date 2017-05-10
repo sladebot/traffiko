@@ -30,12 +30,12 @@ class LocationDash extends Component {
         </div>
         <div className="mdl-cell mdl-cell--6-col">
           <div className="mdl-grid">
-            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
+            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800" style={{border: '1px solid white'}}>
               <BoroughCauseDashboard 
                   fetching={fetching}
                   fetched={fetched}
                   borough_cause_dashboard_data={borough_cause_dashboard_data}
-                  height={400}
+                  height={800}
                   width={600}
                   />
             </div>

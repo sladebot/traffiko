@@ -22,10 +22,10 @@ class BarChart extends Component {
 
   _getBasicOptions() {
     const margin = {top: 30, right: 5, bottom: 20, left: 50},
-		  width = 500 - margin.left - margin.right,
-	    height = 250 - margin.top - margin.bottom,
+		  width = 600 - margin.left - margin.right,
+	    height = 400 - margin.top - margin.right,
 		  colorBar = d3.scale.category20(),
-		  barPadding = 1
+		  barPadding = 20
     
     return {
 			margin : margin, 
@@ -36,90 +36,6 @@ class BarChart extends Component {
 		}	
   }
 
-  drawBarChart() {
-    const { borough_cause_dashboard_data, chartOptions } = this.props
-    let basics = this._getBasicOptions()
-    const margin = basics.margin,
-      width = basics.width,
-      height = basics.height,
-      colorBar = basics.colorBar,
-      barPadding = basics.barPadding
-      
-    const xScale = d3.scale.linear()
-      .domain([0, borough_cause_dashboard_data.length])
-      .range([0, width])
-
-    const yScale = d3.scale.linear()
-			.domain([0, d3.max(borough_cause_dashboard_data, (d) => {return d.total})])
-			.range([height, 0])
-		
-		
-		const svg = d3.select('#barChart')
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-
-    const plot = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-    
-    plot.selectAll('rect')
-      .data(borough_cause_dashboard_data)
-      .enter()
-      .append('rect')
-      .attr('x', (d, i) => {
-        return xScale(i)
-      })
-      .attr('width', width/borough_cause_dashboard_data.length - barPadding)
-      .attr('y', (d) => {return yScale(d.total)})
-      .attr('height', (d) => {
-        return height - yScale(d.total)
-      })
-      .attr('fill', 'lightgrey')
-    
-    plot.selectAll('text')
-      .data(borough_cause_dashboard_data)
-      .enter()
-      .append('text')
-      .text((d) => {
-        return formatAsInteger(d3.round(d.total))
-      })
-      .attr('text-anchor', 'middle')
-      .attr('x', (d, i) => {
-        return (i * (width / borough_cause_dashboard_data.length)) + ((width / borough_cause_dashboard_data.length - barPadding) / 2);
-      })
-      .attr('y', (d) => {
-        return yScale(d.total) + 14
-      })
-      .attr('class', 'yAxis')
-      .attr('font-family', 'sans-seriff')
-      .attr('fill', 'white')
-
-    const xLabels = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top + height})`)
-
-    xLabels.selectAll('text.xAxis')  
-      .data(borough_cause_dashboard_data)
-      .enter()
-      .append('text')
-      .text((d) => {return d.borough})
-      .attr('text-anchor', 'middle')
-      .attr('x', (d, i) => {
-        return (i * (width / borough_cause_dashboard_data.length)) + ((width / borough_cause_dashboard_data.length - barPadding) / 2);
-      })
-      .attr('y', 15)
-      .attr('class', 'xAxis')
-    
-    svg.append('text')
-      .attr("x", (width + margin.left + margin.right)/2)
-      .attr("y", 15)
-      .attr("class","title")				
-      .attr("text-anchor", "middle")
-      .text("Borough Overview")
-
-  }
-
   // componentDidMount() {
   //   console.log("Component mounted")
   //   this.drawBarChart()
@@ -128,27 +44,28 @@ class BarChart extends Component {
 
 
   render() {
-    const { fetching, fetched, borough_cause_dashboard_data, chartOptions } = this.props
+    const { fetching, fetched, borough_cause_dashboard_data, chartOptions={} } = this.props
+
     const datasetBarSelected = this._datasetBarChosen(borough_cause_dashboard_data)
     const basics = this._getBasicOptions()
+
+    
     const margin = basics.margin,
-      width = basics.width,
-      height = basics.height,
+      width = chartOptions.width || basics.width,
+      height =  chartOptions.height || basics.height,
       colorBar = basics.colorBar,
       barPadding = basics.barPadding
 
-    const w = chartOptions.width - (margin.left + margin.right)
-    const h = chartOptions.height - (margin.top + margin.bottom)
-
     const xScale = d3.scale.linear()
       .domain([0, this._datasetBarChosen(datasetBarSelected).length])
-      .range([0, chartOptions.width])
+      .range([0, width])
 
     const yScale = d3.scale.linear()
 			.domain([0, d3.max(datasetBarSelected, (d) => {return d.total})])
-			.range([chartOptions.height, 0])
+			.range([height, 0])
     
-    const transform='translate('+margin.left+','+margin.top+')';
+    const transform='translate('+margin.left+','+margin.top+')'
+    const transformXAxis=`translate(${margin.left}, ${margin.top + height})`
     
     
     /*let backgroundRects = datasetBarSelected.map((d, i) => {
@@ -172,8 +89,8 @@ class BarChart extends Component {
           yScaleFn={yScale}
           index={i}
           yMetric={d.total}
-          width={60}
-          height={chartOptions.height}
+          width={(width/datasetBarSelected.length - barPadding)}
+          height={height}
           fill={"#F5F5F5"}
           stroke={"#F5F5F5"}
         />
@@ -184,44 +101,49 @@ class BarChart extends Component {
       return (
         <text
           key={i}
-          x={(i * (width / datasetBarSelected.length) - 2 ) + ((width / datasetBarSelected.length) / 2)}
+          textAnchor='middle'
+          x={(i * (width / datasetBarSelected.length) - 2 ) + ((width / datasetBarSelected.length - barPadding) / 2)}
           y={yScale(d.total) + 14}
           className="yAxis"
-          stroke="black"
-          >
-          {d['total']}
-        </text>
+          stroke="black">{d['total']}</text>
       )
     })
 
-    console.log(`Fetched in component ${this.props.fetched}`)
-
-    let chartBoxwidth = chartOptions.width || this.state.width
-    let chartBoxheight = chartOptions.height || this.state.height
+    let xLabels = datasetBarSelected.map((d, i) => {
+      return (
+        <text
+          key={i}
+          textAnchor='middle'
+          x={(i * (width / datasetBarSelected.length)) + ((width / datasetBarSelected.length - barPadding) / 2)}
+          y={15}
+          className="xAxis"
+          fill="white">{d['borough']}</text>
+      )
+    })
 
     if(this.props.fetched) {
-      console.log(`Loading Component...`)
       return (
-        // <div id="barChart"></div>
         <div>
-          <svg id={chartOptions.chartId || 'barChart'} 
-            width={chartOptions.width || this.state.width}
-            height={chartOptions.height || this.state.height}>
+          <svg id='barChart' 
+            width={(width + margin.left + margin.right)}
+            height={(height + margin.top + margin.bottom)}>
+            stroke='white'
             <g transform={transform}>
               {/*{backgroundRects}*/}
               {foregroundRects}
-              {/*{yLabels}*/}
+              {yLabels}
             </g>
-            {/*<g transform={transformXAxis}>
-
-            </g>*/}
+            <g transform={transformXAxis}>
+              {xLabels}
+            </g>
+            <text 
+              fill="white">{}</text>
           </svg>
         </div>
       )
     } else {
-      console.log(`Loading Loader...`)
       return (
-        <div style={{height: chartBoxheight, width: chartBoxwidth}}>
+        <div style={{height: (height + margin.top + margin.bottom), width:  (width + margin.left + margin.right)}}>
           <Spinner 
             spinnerName="cube-grid"
             className='center'
