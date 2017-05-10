@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import d3 from 'd3'
+import Bar from './Bar'
+import Spinner from 'react-spinkit'
 
 class BarChart extends Component {
   
@@ -15,7 +17,6 @@ class BarChart extends Component {
     const filtered = datasetBarChart
       .sort((a, b) => a['total'] - b['total'])
       .filter(d => d['cause'] == cause)
-    console.log(`Filtered to - ${filtered.length}`)
 	  return filtered;
   }
 
@@ -36,16 +37,14 @@ class BarChart extends Component {
   }
 
   drawBarChart() {
-    console.log("DRAWING BAR CHART !!")
     const { borough_cause_dashboard_data, chartOptions } = this.props
     let basics = this._getBasicOptions()
-    console.log(`Starting to draw chart with data length - ${borough_cause_dashboard_data.length}`)
     const margin = basics.margin,
       width = basics.width,
       height = basics.height,
       colorBar = basics.colorBar,
       barPadding = basics.barPadding
- 
+      
     const xScale = d3.scale.linear()
       .domain([0, borough_cause_dashboard_data.length])
       .range([0, width])
@@ -69,7 +68,6 @@ class BarChart extends Component {
       .enter()
       .append('rect')
       .attr('x', (d, i) => {
-        console.log(`Data ${d}`)
         return xScale(i)
       })
       .attr('width', width/borough_cause_dashboard_data.length - barPadding)
@@ -127,21 +125,20 @@ class BarChart extends Component {
   //   this.drawBarChart()
   // }
   
+
+
   render() {
-    const { borough_cause_dashboard_data, chartOptions } = this.props
-    console.log(`Sending for filtering - ${borough_cause_dashboard_data.length}`)
+    const { fetching, fetched, borough_cause_dashboard_data, chartOptions } = this.props
     const datasetBarSelected = this._datasetBarChosen(borough_cause_dashboard_data)
-    let basics = this._getBasicOptions()
-    console.log(`Starting to draw chart with data length - ${borough_cause_dashboard_data.length}`)
+    const basics = this._getBasicOptions()
     const margin = basics.margin,
       width = basics.width,
       height = basics.height,
       colorBar = basics.colorBar,
       barPadding = basics.barPadding
 
-
-    const w = chartOptions.width - (margin.left + margin.right),
-      h = chartOptions.height - (margin.top + margin.bottom)
+    const w = chartOptions.width - (margin.left + margin.right)
+    const h = chartOptions.height - (margin.top + margin.bottom)
 
     const xScale = d3.scale.linear()
       .domain([0, this._datasetBarChosen(datasetBarSelected).length])
@@ -169,23 +166,24 @@ class BarChart extends Component {
     
     let foregroundRects = datasetBarSelected.map((d, i) => {
       return (
-        <rect 
-          key={d["_id"]}
-          x={xScale(i)}
+        <Bar 
+          keyId={d['_id']}
+          xScaleFn={xScale}
+          yScaleFn={yScale}
+          index={i}
+          yMetric={d.total}
           width={60}
-          y={yScale(d.total)}
-          height={chartOptions.height - yScale(d.total)}
-          fill="#F5F5F5"
-          />
+          height={chartOptions.height}
+          fill={"#F5F5F5"}
+          stroke={"#F5F5F5"}
+        />
       )
     })
 
-    debugger;
     let yLabels = datasetBarSelected.map((d, i) => {
-      debugger
       return (
         <text
-          text-anchor='middle'
+          key={i}
           x={(i * (width / datasetBarSelected.length) - 2 ) + ((width / datasetBarSelected.length) / 2)}
           y={yScale(d.total) + 14}
           className="yAxis"
@@ -195,25 +193,43 @@ class BarChart extends Component {
         </text>
       )
     })
-    
-    return (
-      // <div id="barChart"></div>
-      <div>
-        <svg id={chartOptions.chartId || 'barChart'} 
-          width={chartOptions.width || this.state.width}
-          height={chartOptions.height || this.state.height}>
-          <g transform={transform}>
-            {/*{backgroundRects}*/}
-            {foregroundRects}
-            {yLabels}
-          </g>
-          {/*<g transform={transformXAxis}>
 
-          </g>*/}
-        </svg>
-      </div>
-    )
-  }
+    console.log(`Fetched in component ${this.props.fetched}`)
+
+    let chartBoxwidth = chartOptions.width || this.state.width
+    let chartBoxheight = chartOptions.height || this.state.height
+
+    if(this.props.fetched) {
+      console.log(`Loading Component...`)
+      return (
+        // <div id="barChart"></div>
+        <div>
+          <svg id={chartOptions.chartId || 'barChart'} 
+            width={chartOptions.width || this.state.width}
+            height={chartOptions.height || this.state.height}>
+            <g transform={transform}>
+              {/*{backgroundRects}*/}
+              {foregroundRects}
+              {/*{yLabels}*/}
+            </g>
+            {/*<g transform={transformXAxis}>
+
+            </g>*/}
+          </svg>
+        </div>
+      )
+    } else {
+      console.log(`Loading Loader...`)
+      return (
+        <div style={{height: chartBoxheight, width: chartBoxwidth}}>
+          <Spinner 
+            spinnerName="cube-grid"
+            className='center'
+            />
+        </div>
+      )
+    }
+  } 
 }
 
 export default BarChart

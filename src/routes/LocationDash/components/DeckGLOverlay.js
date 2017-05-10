@@ -100,7 +100,6 @@ export default class DeckGLOverlay extends Component {
   }
 
   _initialize(gl) {
-    console.log(`Initializing`)
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
   }
@@ -112,7 +111,6 @@ export default class DeckGLOverlay extends Component {
     }
     const data = heatmap_data
 
-    // console.log("HEX DATA LAYER - " + JSON.stringify(data))
 
     const layers = [
       new HexagonLayer({

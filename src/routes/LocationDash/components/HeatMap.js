@@ -37,11 +37,8 @@ class HeatMap extends Component {
   }
 
   render() {
-    // console.log('Main props - ' + JSON.stringify(this.props))
     const { heatmap_data } = this.props
     const { viewport } = this.state
-    // const  } = this.state
-    // console.log("MAin Data - " + JSON.stringify(heatmap_data))
     return (
       <MapGL 
         {...viewport}

@@ -30,11 +30,13 @@ class BoroughCauseDashboard extends Component {
   }
 
   render() {
-    const { borough_cause_dashboard_data } = this.props
+    const { fetching, fetched, borough_cause_dashboard_data } = this.props
     return (
       <div>
         <div id="pieChart"></div>
-        <BarChart 
+        <BarChart
+          fetching={fetching}
+          fetched={fetched}
           borough_cause_dashboard_data={borough_cause_dashboard_data}
           chartOptions={this.state.barChartOptions}
           />

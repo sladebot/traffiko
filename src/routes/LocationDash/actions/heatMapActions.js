@@ -21,7 +21,6 @@ export function fetchHeatMapData(filter={'type': null,'timeframe': null}) {
 export function fetchAccidentCauseData(filter={'type': null,'timeframe': null}) {
   return (dispatch) => {
     let filteredParams = filterParams(filter);
-    console.log('Calling api for bar chart!!')
     axios.get(`/api/v1/cause_bar?${filteredParams}`)
       .then(response => {
         dispatch({type: 'FETCH_CAUSE_BAR_DATA_FULFILLED', payload: response.data})
