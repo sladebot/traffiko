@@ -41,7 +41,33 @@ body {
     position: relative !important;
     margin: auto;
     top: 50%;
-    .sk-cube {
-      background: white !important;
-    }
+}
+
+.sk-cube {
+  background: white !important;
+}
+
+.lineSpinner {
+  position: relative !important;
+  top: 0;
+  margin: auto;
+  top: -30% !important;
+  left: 50% !important;
+}
+
+#lineChartTotal {
+    font-family: Verdana;
+    font-size: 72px;
+    fill: grey;
+    text-anchor: middle;
+    font-weight: bold;
+    /* font-style: italic; */
+}
+
+#lineChartTitle {
+    font-family: Verdana;
+    font-size: 14px;
+    fill: lightgrey;
+    font-weight: bold;
+    text-anchor: middle;
 }

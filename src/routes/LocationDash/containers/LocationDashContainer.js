@@ -15,7 +15,6 @@ class LocationDash extends Component {
 
   render() {
     const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched } = this.props
-    // console.log(`Data in redux container ${heatmap_data.length}`)
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
@@ -30,7 +29,7 @@ class LocationDash extends Component {
         </div>
         <div className="mdl-cell mdl-cell--6-col">
           <div className="mdl-grid">
-            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800" style={{border: '1px solid white'}}>
+            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
               <BoroughCauseDashboard 
                   fetching={fetching}
                   fetched={fetched}

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import * as d3 from 'd3'
 import BarChart from '../components/BarChart'
 import PieChart from '../../../components/PieChart'
+import LineChart from '../../../components/LineChart'
 
 class BoroughCauseDashboard extends Component {
 
@@ -25,15 +26,22 @@ class BoroughCauseDashboard extends Component {
           height={200}
           width={200}/>
 
+        <LineChart
+          fetched={fetched}
+          fetching={fetching}
+          height={220}
+          width={500}
+          borough_cause_dashboard_data={borough_cause_dashboard_data} />
+          
+
         <BarChart
           fetching={fetching}
           fetched={fetched}
           borough_cause_dashboard_data={borough_cause_dashboard_data}
           chartOptions={this.state.barChartOptions}
-          height={400}
+          height={250}
           width={600}
           />
-        <div id="lineChart"></div>
       </div>
     )
   }

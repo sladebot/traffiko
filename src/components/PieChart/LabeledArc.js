@@ -6,7 +6,6 @@ class LabeledArc extends Arc {
     let d = data
     d.innerRadius = innerRadius
     d.outerRadius = outerRadius
-    debugger
     let [labelX, labelY] = this.arc.centroid(d)
     let labelTranslate = `translate(${labelX}, ${labelY})`
 
