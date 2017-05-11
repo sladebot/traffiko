@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 // import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import MapGL from 'react-map-gl'
@@ -14,9 +15,22 @@ class HeatMapContainer extends Component {
       ...props,
       viewport: {
         ...DeckGLOverlay.defaultViewport
-      }
+      },
+      heatmap_data: []
     }
+
+    axios.get(`/api/v1/heatmap`)
+      .then(response => {
+        const data = response.data.map(d => ([Number(d.longitude), Number(d.latitude)]))
+        this.setState({
+          heatmap_data: data
+        });
+      })
+      .catch(_err => {
+        console.log(`Something went wrong in fetching map data`)
+      })
   }
+
 
   componentDidMount() {
     window.addEventListener('resize', this._resize.bind(this))
@@ -26,8 +40,8 @@ class HeatMapContainer extends Component {
   _resize() {
     let element = document.getElementById('heatmap')
     this._onChangeViewport({
-      width: element.offsetWidth,
-      height: element.offsetHeight
+      width: 700,
+      height: 600
     })
   }
 
@@ -38,7 +52,6 @@ class HeatMapContainer extends Component {
   }
 
   render() {
-    const { heatmap_data } = this.props
     const viewport = this.state.viewport
     return (
       <MapGL
@@ -46,12 +59,12 @@ class HeatMapContainer extends Component {
         height={600}
         width={700}
         mapStyle="mapbox://styles/mapbox/dark-v9"
-		    perspectiveEnabled={true}
+		    perspectiveEnabled={false}
         onChangeViewport={this._onChangeViewport.bind(this)}
         mapboxApiAccessToken={MAPBOX_TOKEN}>
         <DeckGLOverlay
           viewport={viewport}
-          heatmap_data={heatmap_data}
+          heatmap_data={this.state.heatmap_data}
           />
         </MapGL>
     )

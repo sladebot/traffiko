@@ -24,13 +24,13 @@ const all = (req, res) => {
       data = accidents
       global.all_accidents = accidents
     }
-    return res.status(200).json({data: data})
+    return res.status(200).json(data)
   })
 }
 
 const heatMapLocations = (req, res) => {
   console.log(`Starting query at = ${Date.now()}`)
-  Map.find({}).select({_id: 0, longitude: 1, latitude: 1}).limit(500)
+  Map.find({}).select({_id: 0, longitude: 1, latitude: 1})
     .exec((err, mapPoints) => {
       console.log(`Got data at = ${Date.now()}`)
       if(err) {
@@ -47,9 +47,8 @@ const heatMapLocations = (req, res) => {
         global.heatMapLocations = mapPoints
       }
 
-      const filterData =  response.map(point => [point['latitude'], point['longitude']])
       console.log(`Filtering done at at = ${Date.now()}`)
-      return res.status(200).json({data: filterData})
+      return res.status(200).json(response)
     })
 }
 

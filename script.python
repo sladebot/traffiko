@@ -1,0 +1,15 @@
+import json
+import csv
+
+csvFile = open('public/heatmap.csv', 'r')
+jsonFile = open('public/heatmap.json', 'w')
+
+fieldnames =  ("longitude", "latitude")
+reader = csv.DictReader(csvFile, fieldnames)
+
+data = []
+
+for row in reader:
+    data.append(row)
+  
+json.dump(data, jsonFile)
