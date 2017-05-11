@@ -43,3 +43,20 @@ export function fetchBoroughCauseDashboard(filter={}) {
       })
   }
 }
+
+
+export function fetchParallelCoordinatePlotData() {
+  console.log(`Action called !`)
+  return (dispatch) => {
+    console.log('Sending get request')
+    axios.get(`/api/v1/parallelCoordinatesData`)
+      .then(response => {
+        console.log('Got response')
+        dispatch({type: 'FETCH_PARALLEL_COORDINATES_DATA_FULFILLED', payload: response.data})
+      })
+      .catch(err => {
+        console.log('Got error')
+        dispatch({type: 'FETCH_PARALLEL_COORDINATES_DATA_REJECTED', payload: err})
+      })
+  }
+}

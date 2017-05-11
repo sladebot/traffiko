@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard } from '../actions/heatMapActions'
+import { fetchParallelCoordinatePlotData, fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard } from '../actions/heatMapActions'
+// import { fetchParallelCoordinatePlotData } from '../actions/parallelCoordinateActions'
 import HeatMapContainer from './HeatMapContainer'
 import CauseBarChart from '../components/CauseBarChart'
 import BoroughCauseDashboard from './BoroughCauseDashboard'
+import ParallelCoordinateChart from '../../../components/ParallelCoordinateChart'
 
 class LocationDash extends Component {
   componentWillMount() {
-    const { fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard } = this.props
-    fetchHeatMapData()
+    const { fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard, fetchParallelCoordinatePlotData} = this.props
+    // fetchHeatMapData()
     fetchAccidentCauseData()
     fetchBoroughCauseDashboard()
+    fetchParallelCoordinatePlotData()
   }
 
   render() {
-    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched } = this.props
+    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, parallel_coordinate_data, fetching, fetched } = this.props
+    console.log(`Parent smart container - ${parallel_coordinate_data.length}`)
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
@@ -49,21 +53,37 @@ class LocationDash extends Component {
             </div>
           </div>  
         </div>
+        <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
+            <ParallelCoordinateChart 
+              height={900}
+              width={1400}
+              fetching={fetching}
+              fetched={fetched}
+              parallel_coordinate_data={parallel_coordinate_data}/>
+        </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ heatMap }) => {
+const mapStateToProps = ({ heatMap, parallel }) => {
   const {heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched} = heatMap
+  const {parallel_coordinate_data} = parallel
   return {
     heatmap_data,
     accident_reasons_data,
     borough_cause_dashboard_data,
+    parallel_coordinate_data,
     fetching,
     fetched
   }
 }
 
+const actions = {
+  fetchHeatMapData,
+  fetchAccidentCauseData,
+  fetchBoroughCauseDashboard,
+  fetchParallelCoordinatePlotData
+}
 
-export default connect(mapStateToProps, { fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard })(LocationDash)
+export default connect(mapStateToProps, actions)(LocationDash)

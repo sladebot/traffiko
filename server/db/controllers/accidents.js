@@ -89,9 +89,33 @@ const getBoroughCauseDashboardData = (req, res) => {
   }
 }
 
+const getParallelCoordinateData = (req, res) => {
+  let response = null
+  console.log(`Starting query at = ${Date.now()}`)
+  
+  if(global.parallel_coordinate_data != undefined) {
+      console.log(`Serving from cache`)
+      return res.status(200).json(global.parallel_coordinate_data)
+  } else {
+    
+    Accident.find({}).select({_id: 1,numPedestriansKilled: 1,numMotoristInjured: 1,numPedestriansInjured: 1,zipCode: 1,longitude: 1,numMotoristKilled: 1,numCyclistInjured: 1,numPersonKilled: 1,numCyclistKilled: 1,latitude: 1,numPersonInjured: 1})
+      .limit(5000)
+      .exec((err, data) => {
+        if(err) {
+          console.log('Got error')
+          return res.status(500).json({error: {msg: 'Something went wrong', payload: err}, data: null })
+        }
+        console.log('Sending from DB')
+        global.parallel_coordinate_data = data
+        return res.status(200).json(data)
+      })
+  }
+}
+
 module.exports = {
   all,
   getCauseBarData,
   getBoroughCauseDashboardData,
-  heatMapLocations
+  heatMapLocations,
+  getParallelCoordinateData
 }
