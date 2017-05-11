@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-// import { render } from 'react-dom'
 import { connect } from 'react-redux'
 import MapGL from 'react-map-gl'
 import DeckGLOverlay from '../components/DeckGLOverlay'
+import Spinner from 'react-spinkit'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibWpzaGluIiwiYSI6ImNqMXVkaXBiZTAwN3cycnBwcHF0N3MyOXkifQ.IyHqcYVK0COvUWFKnhcZGA'
 
@@ -53,21 +53,33 @@ class HeatMapContainer extends Component {
 
   render() {
     const viewport = this.state.viewport
-    return (
-      <MapGL
-        {...viewport}
-        height={600}
-        width={700}
-        mapStyle="mapbox://styles/mapbox/dark-v9"
-		    perspectiveEnabled={false}
-        onChangeViewport={this._onChangeViewport.bind(this)}
-        mapboxApiAccessToken={MAPBOX_TOKEN}>
-        <DeckGLOverlay
-          viewport={viewport}
-          heatmap_data={this.state.heatmap_data}
-          />
-        </MapGL>
-    )
+
+    if(this.state.heatmap_data.length > 0) {
+      return (
+        <MapGL
+          {...viewport}
+          height={600}
+          width={700}
+          mapStyle="mapbox://styles/mapbox/dark-v9"
+          perspectiveEnabled={false}
+          onChangeViewport={this._onChangeViewport.bind(this)}
+          mapboxApiAccessToken={MAPBOX_TOKEN}>
+          <DeckGLOverlay
+            viewport={viewport}
+            heatmap_data={this.state.heatmap_data}
+            />
+          </MapGL>
+      )
+    } else {
+      return (
+        <div style={{height: (600), width:  (700)}}>
+          <Spinner 
+            spinnerName="cube-grid"
+            className='center'
+            />
+        </div>
+      )
+    }
   }
 }
 
