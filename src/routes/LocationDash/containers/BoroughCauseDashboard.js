@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 // import styles from '../../../styles/components/borough_cause_dashboard'
 import * as d3 from 'd3'
 import BarChart from '../components/BarChart'
-import PieChart from '../components/PieChart'
+import PieChart from '../../../components/PieChart'
 
 class BoroughCauseDashboard extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -15,18 +15,6 @@ class BoroughCauseDashboard extends Component {
     }
   }
 
-  dsPieChart() {
-    const vis = d3.select('#pieChart')
-  }
-
-  _initialize() {
-
-  }
-
-  componentDidMount() {
-    this._initialize()
-  }
-
   render() {
     const { fetching, fetched, borough_cause_dashboard_data } = this.props
     return (
@@ -34,8 +22,8 @@ class BoroughCauseDashboard extends Component {
         <PieChart 
           fetching={fetching}
           fetched={fetched}
-          height={300}
-          width={300}/>
+          height={200}
+          width={200}/>
 
         <BarChart
           fetching={fetching}

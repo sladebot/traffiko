@@ -110,7 +110,7 @@ export default class DeckGLOverlay extends Component {
       return null;
     }
 
-    console.log(`Data in deckGL Component ==== ${heatmap_data.length}` )
+    // console.log(`Data in deckGL Component ==== ${heatmap_data.length}` )
     const data = heatmap_data
 
     const layers = [

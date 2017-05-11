@@ -39,9 +39,8 @@ class HeatMapContainer extends Component {
 
   render() {
     const { heatmap_data } = this.props
-    console.log(`HEATMAP DATA IN CONTAINER - ${heatmap_data.length}`)
+    // console.log(`HEATMAP DATA IN CONTAINER - ${heatmap_data.length}`)
     const viewport = this.state.viewport
-    debugger
     return (
       <MapGL
         {...viewport}
