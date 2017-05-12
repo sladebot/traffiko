@@ -19,8 +19,9 @@ class LabeledArc extends Arc {
         <text transform={labelTranslate}
               onClick={this.props.onClick.bind(this, this.props.data.data.cause)}
               textAnchor="middle"
-              fill="black">
-              {this.props.data.data.cause}
+              stroke="transparent"
+              fill="#64B5F6">
+              {this.props.data.data.cause.split("/")[0]}
         </text>
       </g>
     )

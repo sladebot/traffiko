@@ -41,11 +41,13 @@ class BarChart extends Component {
 
     Object.keys(result).map(borough => {
       let h = {}
-      h['borough'] = borough
-      h['total'] = result[borough]['total']
-      h['injured'] = result[borough]['injured']
-      h['killed'] = result[borough]['killed']
-      final.push(h)
+      if(borough != "") {
+        h['borough'] = borough
+        h['total'] = result[borough]['total']
+        h['injured'] = result[borough]['injured']
+        h['killed'] = result[borough]['killed']
+        final.push(h)
+      }
     })
 
     return final
@@ -55,7 +57,7 @@ class BarChart extends Component {
   _getBasicOptions() {
     const margin = {top: 10, right: 5, bottom: 20, left: 50},
 		  width = 630 - margin.left - margin.right,
-	    height = 370 - margin.top - margin.right,
+	    height = 336 - margin.top - margin.right,
 		  colorBar = d3.scale.category20(),
 		  barPadding = 20
     

@@ -32,11 +32,13 @@ class LineChart extends Component {
 
     Object.keys(result).map(borough => {
       let h = {}
-      h['borough'] = borough
-      h['total'] = result[borough]['total']
-      h['injured'] = result[borough]['injured']
-      h['killed'] = result[borough]['killed']
-      final.push(h)
+      if(borough != "") {
+        h['borough'] = borough
+        h['total'] = result[borough]['total']
+        h['injured'] = result[borough]['injured']
+        h['killed'] = result[borough]['killed']
+        final.push(h)
+      }
     })
 
     return final
@@ -108,7 +110,7 @@ class LineChart extends Component {
             <text id="lineChartTitle"
                   x={margin.left + ((chartWidth)/2) - 100}
                   y={10}>
-              {'Accident distribution by location'}
+              {'Total Accidents selected by Causes'}
               </text>
           </g>
         </svg>

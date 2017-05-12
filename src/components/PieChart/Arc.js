@@ -10,6 +10,7 @@ class Arc extends Component {
     this.arc = d3.svg.arc()
   }
 
+
   clickHandler = (e) => {
     this.setState({
       clicked: this.state.clicked ? false : true

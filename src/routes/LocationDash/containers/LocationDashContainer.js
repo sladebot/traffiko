@@ -36,12 +36,13 @@ class LocationDash extends Component {
                 fetching={fetching}
                 fetched={fetched}
                 heatmap_data={heatmap_data} />
+              <div className="labelHeader" style={{width: '106%'}}>3D view of accident heatmap</div>
             </div>
           </div>
         </div>
         <div className="mdl-cell mdl-cell--6-col">
           <div className="mdl-grid">
-            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
+            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-900">
               <BoroughCauseDashboard 
                   fetching={fetching}
                   fetched={fetched}
@@ -52,11 +53,13 @@ class LocationDash extends Component {
                   height={900}
                   width={600}
                   />
+                <div className="labelHeader">Correlation between location and causes</div>
             </div>
           </div>  
         </div>
         <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
-            <iframe src="http://localhost:3000/parallel.html" style={{height: 550, width: 1400, overflow: 'hidden'}} scrolling="no"></iframe>
+          <div className="labelHeader">Parallel Coordinate Graph</div>
+          <iframe src="http://localhost:3000/parallel.html" style={{height: 550, width: 1400, overflow: 'hidden'}} scrolling="no"></iframe>
         </div>
       </div>
     )

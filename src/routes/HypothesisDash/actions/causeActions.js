@@ -19,3 +19,20 @@ export function fetchAccidentCauseData(filter={'type': null,'timeframe': null}) 
       })
   }
 }
+
+export function filterByAccidentCause(cause="ALL") {
+  console.log(`Just action triggered`)
+  return (dispatch) => {
+    console.log(`Click happened dispatching`)
+    // let filteredParams = filterParams(filter)
+    axios.get(`/api/v1/dashboard/borough_cause?cause=${cause}`)
+      .then(response => {
+        dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_FULFILLED', payload: response.data})
+      })
+      .catch(err => {
+        console.log('error')
+        console.log(err)
+        dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_REJECTED', payload: err})
+      })
+  }
+}

@@ -13,7 +13,14 @@ const PieChart = ({ height, width, borough_cause_dashboard_data, filterByAcciden
     })(data)
   
 
-  const colors = d3.scale.category10()
+  const colors = [
+    // "#43A047",
+    // "#1E88E5",
+    // "#9C27B0",
+    // "#E53935",
+    // "#3949AB",
+    // "#6D4C41"
+  ]
   const innerRadius = Math.min(height - 10, width - 10) / 2 * .5
   const outerRadius = Math.min(height - 10, width - 10) / 2
   
