@@ -4,7 +4,17 @@ import d3 from 'd3'
 class Arc extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      clicked: false
+    }
     this.arc = d3.svg.arc()
+  }
+
+  clickHandler = (e) => {
+    this.setState({
+      clicked: this.state.clicked ? false : true
+    })
+    console.log(`Clicked on Path`)
   }
 
   // componentWillMount() {
@@ -23,9 +33,12 @@ class Arc extends Component {
   render() {
     const { innerRadius, outerRadius } = this.props
     this.updateD3(innerRadius, outerRadius)
-    debugger
+
+    const fillColor = this.state.clicked ? '#1565C0' : this.props.color
+
     return <path d={this.arc(this.props.data)}
-                 style={{fill: this.props.color}}></path>
+                 onClick={this.clickHandler}
+                 style={{fill: fillColor}}></path>
   }
 }
 

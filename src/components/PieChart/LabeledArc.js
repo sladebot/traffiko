@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import Arc from './Arc'
 class LabeledArc extends Arc {
+  
+  clickHandler(e) {
+    console.log(`Click`)
+  }
+
   render () {
     const { innerRadius, outerRadius, color, data } = this.props
     let d = data
