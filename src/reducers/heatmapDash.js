@@ -1,7 +1,10 @@
 const initialState = {
   heatmap_data: [],
   accident_reasons_data: [],
-  borough_cause_dashboard_data: [],
+  borough_cause_dashboard_data: {
+    borough: [],
+    causes: []
+  },
   fetching: false,
   fetched: false,
   error: null

@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux'
 import locationReducer from './location'
 import heatMapReducer from './heatMapDash'
-import parallelCoordinateReducer from './parallelCoordinateReducer'
+// import parallelCoordinateReducer from './parallelCoordinateReducer'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     location: locationReducer,
     heatMap: heatMapReducer,
-    parallel: parallelCoordinateReducer,
     ...asyncReducers
   })
 }

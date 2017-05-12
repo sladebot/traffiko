@@ -8,14 +8,13 @@ class LabeledArc extends Arc {
     d.outerRadius = outerRadius
     let [labelX, labelY] = this.arc.centroid(d)
     let labelTranslate = `translate(${labelX}, ${labelY})`
-
     return (
       <g fill='#F5F5F5' stroke='black'>
         {super.render()}
         <text transform={labelTranslate}
               textAnchor="middle"
               fill="black">
-              {this.props.data.data.category}
+              {this.props.data.data.cause}
         </text>
       </g>
     )

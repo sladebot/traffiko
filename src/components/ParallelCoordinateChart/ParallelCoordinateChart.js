@@ -124,7 +124,6 @@ class ParallelCoordinateChart extends Component {
         //   return d3.select(this)
         // })
         .each(function(d) {
-          debugger
           return d3.select(this).call(this.state.axis.scale(this.state.y[d]))
         })
         .append("text")

@@ -5,7 +5,6 @@ import { fetchParallelCoordinatePlotData, fetchHeatMapData, fetchAccidentCauseDa
 import HeatMapContainer from './HeatMapContainer'
 import CauseBarChart from '../components/CauseBarChart'
 import BoroughCauseDashboard from './BoroughCauseDashboard'
-import ParallelCoordinateChart from '../../../components/ParallelCoordinateChart'
 
 class LocationDash extends Component {
   componentWillMount() {
@@ -13,12 +12,10 @@ class LocationDash extends Component {
     // fetchHeatMapData()
     fetchAccidentCauseData()
     fetchBoroughCauseDashboard()
-    // fetchParallelCoordinatePlotData()
   }
 
   render() {
-    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, parallel_coordinate_data, fetching, fetched } = this.props
-    // console.log(`Parent smart container - ${parallel_coordinate_data.length}`)
+    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched } = this.props
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
@@ -61,14 +58,12 @@ class LocationDash extends Component {
   }
 }
 
-const mapStateToProps = ({ heatMap, parallel }) => {
+const mapStateToProps = ({ heatMap }) => {
   const {heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched} = heatMap
-  const {parallel_coordinate_data} = parallel
   return {
     heatmap_data,
     accident_reasons_data,
     borough_cause_dashboard_data,
-    parallel_coordinate_data,
     fetching,
     fetched
   }
@@ -77,8 +72,7 @@ const mapStateToProps = ({ heatMap, parallel }) => {
 const actions = {
   fetchHeatMapData,
   fetchAccidentCauseData,
-  fetchBoroughCauseDashboard,
-  fetchParallelCoordinatePlotData
+  fetchBoroughCauseDashboard
 }
 
 export default connect(mapStateToProps, actions)(LocationDash)

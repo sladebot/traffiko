@@ -72,7 +72,7 @@ if(project.env === 'development') {
   app.get('/api/v1/heatmap', accidentsController.heatMapLocations)
   app.get('/api/v1/cause_bar', accidentsController.getCauseBarData)
   app.get('/api/v1/dashboard/borough_cause', accidentsController.getBoroughCauseDashboardData)
-  app.get(`/api/v1/parallelCoordinatesData`, accidentsController.getParallelCoordinateData)
+  // app.get(`/api/v1/parallelCoordinatesData`, accidentsController.getParallelCoordinateData)
 
   app.get(`/parallelFrame`, (req, res) => {
     const filename = path.resolve(__dirname, 'public/parallel.html')

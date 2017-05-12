@@ -23,6 +23,7 @@ class Arc extends Component {
   render() {
     const { innerRadius, outerRadius } = this.props
     this.updateD3(innerRadius, outerRadius)
+    debugger
     return <path d={this.arc(this.props.data)}
                  style={{fill: this.props.color}}></path>
   }
