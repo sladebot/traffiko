@@ -13,12 +13,12 @@ class LocationDash extends Component {
     // fetchHeatMapData()
     fetchAccidentCauseData()
     fetchBoroughCauseDashboard()
-    fetchParallelCoordinatePlotData()
+    // fetchParallelCoordinatePlotData()
   }
 
   render() {
     const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, parallel_coordinate_data, fetching, fetched } = this.props
-    console.log(`Parent smart container - ${parallel_coordinate_data.length}`)
+    // console.log(`Parent smart container - ${parallel_coordinate_data.length}`)
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
@@ -54,12 +54,7 @@ class LocationDash extends Component {
           </div>  
         </div>
         <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
-            <ParallelCoordinateChart 
-              height={900}
-              width={1400}
-              fetching={fetching}
-              fetched={fetched}
-              parallel_coordinate_data={parallel_coordinate_data}/>
+            <iframe src="http://localhost:3000/parallel.html" style={{height: 600, width: 1300, overflow: 'hidden'}} scrolling="no"></iframe>
         </div>
       </div>
     )

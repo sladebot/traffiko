@@ -1,8 +1,12 @@
+var fs = require('fs')
+
+
 const _ = require('lodash')
 const Accident = require('../models/accident')
 const Cause = require('../models/cause')
 const BoroughCause = require('../models/borough_cause')
 const Map = require('../models/map')
+
 
 const all = (req, res) => {
   
@@ -97,8 +101,19 @@ const getParallelCoordinateData = (req, res) => {
       console.log(`Serving from cache`)
       return res.status(200).json(global.parallel_coordinate_data)
   } else {
-    
-    Accident.find({}).select({_id: 1,numPedestriansKilled: 1,numMotoristInjured: 1,numPedestriansInjured: 1,zipCode: 1,longitude: 1,numMotoristKilled: 1,numCyclistInjured: 1,numPersonKilled: 1,numCyclistKilled: 1,latitude: 1,numPersonInjured: 1})
+    Accident.find({}).select({
+      _id: 1,
+      numPedestriansKilled: 1,
+      numMotoristInjured: 1,
+      numPedestriansInjured: 1,
+      numMotoristKilled: 1,
+      numCyclistInjured: 1,
+      numPersonKilled: 1,
+      numCyclistKilled: 1,
+      numPersonInjured: 1,
+      zipCode: 1,
+      longitude: 1,
+      latitude: 1})
       .limit(5000)
       .exec((err, data) => {
         if(err) {
@@ -107,6 +122,13 @@ const getParallelCoordinateData = (req, res) => {
         }
         console.log('Sending from DB')
         global.parallel_coordinate_data = data
+
+
+        fs.writeFileSync('parallelCoordinates.json', JSON.stringify(data), (err) => {
+          if(!err) {
+            console.log('written')
+          }
+        })
         return res.status(200).json(data)
       })
   }

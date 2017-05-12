@@ -74,6 +74,13 @@ if(project.env === 'development') {
   app.get('/api/v1/dashboard/borough_cause', accidentsController.getBoroughCauseDashboardData)
   app.get(`/api/v1/parallelCoordinatesData`, accidentsController.getParallelCoordinateData)
 
+  app.get(`/parallelFrame`, (req, res) => {
+    const filename = path.resolve(__dirname, 'public/parallel.html')
+    res.set('content-type', 'text/html')
+    res.sendFile(filename)
+    res.end()
+  })
+
   app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')
     compiler.outputFileSystem.readFile(filename, (err, result) => {
