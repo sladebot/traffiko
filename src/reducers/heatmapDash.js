@@ -1,10 +1,9 @@
 const initialState = {
   heatmap_data: [],
+  selectedCause: "ALL",
   accident_reasons_data: [],
-  borough_cause_dashboard_data: {
-    borough: [],
-    causes: []
-  },
+  borough_cause_dash_borough: [],
+  borough_cause_dash_causes: [],
   fetching: false,
   fetched: false,
   error: null
@@ -39,11 +38,14 @@ export default function heatMapReducer(state=initialState, action) {
       return {...state, fetching: false, error: action.payload}
     }
     case 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_FULFILLED': {
+      console.log(`Borough dashboard reducer trigerred and got ${action.payload.selectedCause}`)
       return {
         ...state,
         fetching: false,
         fetched: true,
-        borough_cause_dashboard_data: action.payload
+        selectedCause: action.payload.selectedCause,
+        borough_cause_dash_borough: action.payload.borough,
+        borough_cause_dash_causes: action.payload.causes
       }
     }
     case 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_REJECTED': {

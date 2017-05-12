@@ -19,7 +19,14 @@ class LocationDash extends Component {
   }
 
   render() {
-    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched, filterByAccidentCause } = this.props
+    const { heatmap_data, 
+      accident_reasons_data, 
+      borough_cause_dash_borough, 
+      borough_cause_dash_causes, 
+      fetching, 
+      fetched, 
+      filterByAccidentCause,
+      selectedCause } = this.props
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
@@ -38,7 +45,9 @@ class LocationDash extends Component {
               <BoroughCauseDashboard 
                   fetching={fetching}
                   fetched={fetched}
-                  borough_cause_dashboard_data={borough_cause_dashboard_data}
+                  borough_cause_dash_borough={borough_cause_dash_borough}
+                  borough_cause_dash_causes={borough_cause_dash_causes}
+                  selectedCause={selectedCause}
                   filterByAccidentCause={filterByAccidentCause}
                   height={800}
                   width={600}
@@ -64,13 +73,15 @@ class LocationDash extends Component {
 }
 
 const mapStateToProps = ({ heatMap }) => {
-  const {heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched} = heatMap
+  const {heatmap_data, accident_reasons_data, borough_cause_dash_borough, borough_cause_dash_causes, fetching, fetched, selectedCause} = heatMap
   return {
     heatmap_data,
     accident_reasons_data,
-    borough_cause_dashboard_data,
+    borough_cause_dash_borough,
+    borough_cause_dash_causes,
     fetching,
-    fetched
+    fetched,
+    selectedCause
   }
 }
 

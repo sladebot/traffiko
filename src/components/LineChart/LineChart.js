@@ -8,15 +8,47 @@ class LineChart extends Component {
     const filtered = datasetLineChart
       .sort((a, b) => a['total'] - b['total'])
       .filter(d => d['cause'] == cause)
-	  return filtered;
+    
+    let result = {}
+    filtered.map(data => {
+      let borough = data['borough']
+      let hash = null
+      if(borough in result) {
+        hash = result[borough]
+        hash['total'] += data['total']
+        hash['injured'] += data['injured']
+        hash['killed'] += data['killed']
+      } else {
+        hash = {
+          total: data['total'],
+          injured: data['injured'],
+          killed: data['killed']
+        }
+      }
+      result[borough] = hash
+    })
+
+    let final = []
+
+    Object.keys(result).map(borough => {
+      let h = {}
+      h['borough'] = borough
+      h['total'] = result[borough]['total']
+      h['injured'] = result[borough]['injured']
+      h['killed'] = result[borough]['killed']
+      final.push(h)
+    })
+
+    return final
+
   }
 
   render() {
-    const { height, width, fetched, fetching, borough_cause_dashboard_data } = this.props
-    const filteredData = this._datasetSelected(borough_cause_dashboard_data)
-    
+    const { height, width, fetched, fetching, borough_cause_dash_borough, selectedCause } = this.props
+    console.log(`Selected Cause ${selectedCause}`)
+    const filteredData = this._datasetSelected(borough_cause_dash_borough, selectedCause)
 
-
+    debugger
     const margin = {top: 20, right: 10, bottom: 0, left: 50}
     const chartWidth = width - margin.left - margin.right
     const chartHeight = height - margin.top - margin.bottom

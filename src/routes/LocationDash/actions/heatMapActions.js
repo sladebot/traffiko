@@ -13,6 +13,7 @@ export function fetchHeatMapData(filter={'type': null,'timeframe': null}) {
         dispatch({type: 'FETCH_HEATMAP_DATA_FULFILLED', payload: response.data.data})
       })
       .catch(err => {
+        console.log('error')
         dispatch({type: 'FETCH_HEATMAP_DATA_REJECTED', payload: err})
       })
   }
@@ -26,6 +27,7 @@ export function fetchAccidentCauseData(filter={'type': null,'timeframe': null}) 
         dispatch({type: 'FETCH_CAUSE_BAR_DATA_FULFILLED', payload: response.data})
       })
       .catch(err => {
+        console.log('error')
         dispatch({type: 'FETCH_CAUSE_BAR_DATA_REJECTED', payload: err})
       })
   }
@@ -39,6 +41,7 @@ export function fetchBoroughCauseDashboard(filter={}) {
         dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_FULFILLED', payload: response.data})
       })
       .catch(err => {
+        console.log('error')
         dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_REJECTED', payload: err})
       })
   }
@@ -52,14 +55,25 @@ export function fetchParallelCoordinatePlotData() {
         dispatch({type: 'FETCH_PARALLEL_COORDINATES_DATA_FULFILLED', payload: response.data})
       })
       .catch(err => {
+        console.log('error')
         dispatch({type: 'FETCH_PARALLEL_COORDINATES_DATA_REJECTED', payload: err})
       })
   }
 }
 
-export function filterByAccidentCause() {
+export function filterByAccidentCause(cause="ALL") {
   console.log(`Just action triggered`)
   return (dispatch) => {
     console.log(`Click happened dispatching`)
+    // let filteredParams = filterParams(filter)
+    axios.get(`/api/v1/dashboard/borough_cause?cause=${cause}`)
+      .then(response => {
+        dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_FULFILLED', payload: response.data})
+      })
+      .catch(err => {
+        console.log('error')
+        console.log(err)
+        dispatch({type: 'FETCH_BOROUGH_CAUSE_DASHBOARD_DATA_REJECTED', payload: err})
+      })
   }
 }

@@ -13,11 +13,43 @@ class BarChart extends Component {
   //   }
   // }
 
-  _datasetBarChosen(datasetBarChart, cause="ALL") {
-    const filtered = datasetBarChart
+  _datasetSelected(datasetLineChart, cause="ALL") {
+    const filtered = datasetLineChart
       .sort((a, b) => a['total'] - b['total'])
       .filter(d => d['cause'] == cause)
-	  return filtered;
+    
+    let result = {}
+    filtered.map(data => {
+      let borough = data['borough']
+      let hash = null
+      if(borough in result) {
+        hash = result[borough]
+        hash['total'] += data['total']
+        hash['injured'] += data['injured']
+        hash['killed'] += data['killed']
+      } else {
+        hash = {
+          total: data['total'],
+          injured: data['injured'],
+          killed: data['killed']
+        }
+      }
+      result[borough] = hash
+    })
+
+    let final = []
+
+    Object.keys(result).map(borough => {
+      let h = {}
+      h['borough'] = borough
+      h['total'] = result[borough]['total']
+      h['injured'] = result[borough]['injured']
+      h['killed'] = result[borough]['killed']
+      final.push(h)
+    })
+
+    return final
+
   }
 
   _getBasicOptions() {
@@ -37,10 +69,12 @@ class BarChart extends Component {
   }
   
   render() {
-    const { fetching, fetched, borough_cause_dashboard_data, chartOptions={} } = this.props
-
-    const datasetBarSelected = this._datasetBarChosen(borough_cause_dashboard_data)
+    const { fetching, fetched, borough_cause_dash_borough, selectedCause, chartOptions={} } = this.props
+    console.log(`Selected Cause ${selectedCause}`)
+    const datasetBarSelected = this._datasetSelected(borough_cause_dash_borough, selectedCause)
     const basics = this._getBasicOptions()
+
+    const key = 'total'
 
     
     const margin = basics.margin,
@@ -50,16 +84,17 @@ class BarChart extends Component {
       barPadding = basics.barPadding
 
     const xScale = d3.scale.linear()
-      .domain([0, this._datasetBarChosen(datasetBarSelected).length])
+      .domain([0, datasetBarSelected.length])
       .range([0, width])
 
     const yScale = d3.scale.linear()
-			.domain([0, d3.max(datasetBarSelected, (d) => {return d.total})])
+			.domain([0, d3.max(datasetBarSelected, (d) => {
+        return d[key]
+      })])
 			.range([height, 0])
     
     const transform='translate('+margin.left+','+margin.top+')'
     const transformXAxis=`translate(${margin.left}, ${margin.top + height})`
-    
     let foregroundRects = datasetBarSelected.map((d, i) => {
       return (
         <Bar 
@@ -67,7 +102,7 @@ class BarChart extends Component {
           xScaleFn={xScale}
           yScaleFn={yScale}
           index={i}
-          yMetric={d.total}
+          yMetric={d[key]}
           width={(width/datasetBarSelected.length - barPadding)}
           height={height}
           fill={"#F5F5F5"}

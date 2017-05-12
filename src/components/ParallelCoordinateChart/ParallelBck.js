@@ -62,7 +62,6 @@ class ParallelCoordinateChart extends Component {
 
   getTicks(ticks, d) {
     let data = this.state.axis.scale(this.state.y[d])
-    debugger
     ticks.map((tick) => {
       let translate = this.state.y[d](tick)
       return (<g className='tick'

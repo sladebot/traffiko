@@ -6,17 +6,15 @@ import LabeledArc from './LabeledArc'
 
 const PieChart = ({ height, width, borough_cause_dashboard_data, filterByAccidentCause}) => {
   const key = 'total'
-  const allCount = borough_cause_dashboard_data.filter(o => o.cause == 'ALL')[0]
+  // const allCount = borough_cause_dashboard_data.filter(o => o.cause == 'ALL')[0]
 
+  console.log(`Data received - ${JSON.stringify(borough_cause_dashboard_data)}`)
 
-  const data = borough_cause_dashboard_data.filter(o => o.cause != 'ALL').map(d => {
-    d.value = d[key] / allCount[key]
-    return d
-  })
+  const data = borough_cause_dashboard_data.filter(o => o.cause != 'ALL')
   
   const pie = d3.layout.pie()
     .value(d => {
-      return d.value
+      return d[key]
     })(data)
   
   // const data = [{value -> total/injured/killed: 10, category -> cause: "A"}, {value: 50, category: "B"}, {value: 30, category: "C"}]

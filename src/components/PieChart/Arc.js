@@ -11,7 +11,6 @@ class Arc extends Component {
   }
 
   clickHandler = (e) => {
-    debugger
     this.setState({
       clicked: this.state.clicked ? false : true
     })
@@ -38,7 +37,7 @@ class Arc extends Component {
     const fillColor = this.state.clicked ? '#1565C0' : this.props.color
 
     return <path d={this.arc(this.props.data)}
-                 onClick={this.props.onClick || this.clickHandler.bind(this)}
+                 onClick={(e) => this.props.onClick(this.props.data.data.cause) || this.clickHandler.bind(this)}
                  style={{fill: fillColor}}></path>
   }
 }

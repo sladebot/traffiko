@@ -99,13 +99,34 @@ getCausePieData = (dataset) => {
 const getBoroughCauseDashboardData = (req, res) => {
   console.log(`Starting query at = ${Date.now()}`)
   let response = null
-  if(global.boroughCauseDashboardCachedResponse == undefined) {
-    BoroughCause.find({}).select({_id: 1, cause: 1, total: 1, killed: 1, injured: 1, borough: 1})
+
+  const params = req.query
+  const { cause } = params
+
+  debugger
+
+  let query = null
+
+  if(cause) {
+    // return res.status(200).json({
+    //       borough: [],
+    //       causes: []
+    //     })
+    query = BoroughCause.find({}).select({_id: 1, cause: 1, total: 1, killed: 1, injured: 1, borough: 1})
+  } else {
+    query = BoroughCause.find({}).select({_id: 1, cause: 1, total: 1, killed: 1, injured: 1, borough: 1})
+  }
+
+
+  if(true) {
+    query
       .exec((err, borough_causes) => {
         if(err) {
           return res.status(500).json({error: {msg: 'Something went wrong', payload: err}, data: null })
         }
         
+        debugger
+
         let causePieData = getCausePieData(borough_causes)
 
         let pieResponse = []
@@ -122,8 +143,10 @@ const getBoroughCauseDashboardData = (req, res) => {
           
         let response = {
           borough: borough_causes,
-          causes: sortedPieResponse
+          causes: sortedPieResponse,
+          selectedCause: cause || "ALL"
         }
+        console.log(`Responding at = ${Date.now()}`)
         global.boroughCauseDashboardCachedResponse = response
         return res.status(200).json(response)
       })
