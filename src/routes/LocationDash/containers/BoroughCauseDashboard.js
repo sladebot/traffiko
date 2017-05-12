@@ -33,8 +33,8 @@ class BoroughCauseDashboard extends Component {
           <PieChart 
             fetching={fetching}
             fetched={fetched}
-            height={200}
-            width={200}
+            height={250}
+            width={250}
             selectedCause={selectedCause}
             filterByAccidentCause={filterByAccidentCause}
             borough_cause_dashboard_data={borough_cause_dash_causes} />
@@ -43,7 +43,7 @@ class BoroughCauseDashboard extends Component {
             fetched={fetched}
             fetching={fetching}
             height={220}
-            width={500}
+            width={460}
             borough_cause_dash_borough={borough_cause_dash_borough}
             selectedCause={selectedCause} />
             
@@ -54,7 +54,7 @@ class BoroughCauseDashboard extends Component {
             borough_cause_dash_borough={borough_cause_dash_borough}
             chartOptions={this.state.barChartOptions}
             selectedCause={selectedCause}
-            height={250}
+            height={350}
             width={600}
             />
         </div>

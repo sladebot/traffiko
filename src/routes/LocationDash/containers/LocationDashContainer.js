@@ -49,7 +49,7 @@ class LocationDash extends Component {
                   borough_cause_dash_causes={borough_cause_dash_causes}
                   selectedCause={selectedCause}
                   filterByAccidentCause={filterByAccidentCause}
-                  height={800}
+                  height={900}
                   width={600}
                   />
             </div>
@@ -63,9 +63,6 @@ class LocationDash extends Component {
                       accident_reasons_data={accident_reasons_data}/>
             </div>
           </div>  
-        </div>
-        <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
-            <iframe src="http://localhost:3000/parallel.html" style={{height: 600, width: 1300, overflow: 'hidden'}} scrolling="no"></iframe>
         </div>
       </div>
     )

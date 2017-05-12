@@ -53,9 +53,9 @@ class BarChart extends Component {
   }
 
   _getBasicOptions() {
-    const margin = {top: 30, right: 5, bottom: 20, left: 50},
-		  width = 600 - margin.left - margin.right,
-	    height = 300 - margin.top - margin.right,
+    const margin = {top: 10, right: 5, bottom: 20, left: 50},
+		  width = 630 - margin.left - margin.right,
+	    height = 370 - margin.top - margin.right,
 		  colorBar = d3.scale.category20(),
 		  barPadding = 20
     

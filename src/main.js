@@ -15,10 +15,11 @@ const store = createStore(initialState)
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-  const routes = require('./routes/index').default(store)
+  // const routes = require('./routes/index').default(store)
+  // const routes = require('./routes/index')
 
   ReactDOM.render(
-    <AppContainer store={store} routes={routes} />,
+    <AppContainer store={store} />,
     MOUNT_NODE
   )
 }

@@ -80,6 +80,7 @@ if(project.env === 'development') {
     res.sendFile(filename)
     res.end()
   })
+  
 
   app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')

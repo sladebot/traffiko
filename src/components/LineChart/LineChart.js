@@ -45,21 +45,19 @@ class LineChart extends Component {
 
   render() {
     const { height, width, fetched, fetching, borough_cause_dash_borough, selectedCause } = this.props
-    console.log(`Selected Cause ${selectedCause}`)
     const filteredData = this._datasetSelected(borough_cause_dash_borough, selectedCause)
 
-    debugger
     const margin = {top: 20, right: 10, bottom: 0, left: 50}
     const chartWidth = width - margin.left - margin.right
     const chartHeight = height - margin.top - margin.bottom
 
     const yScale = d3.scale.linear()
 	    .domain([0, d3.max(filteredData, function(d) { return d.total; })])
-	    .range([chartHeight, 0])
+	    .range([chartHeight - 50, 0])
     
     var xScale = d3.scale.linear()
 	    .domain([0, filteredData.length-1])
-	    .range([0, chartWidth])
+	    .range([0, chartWidth - 50])
     
     const boroughs = [
       'STATEN ISLAND',
