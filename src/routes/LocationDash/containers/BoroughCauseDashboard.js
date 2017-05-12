@@ -17,7 +17,7 @@ class BoroughCauseDashboard extends Component {
   }
 
   render() {
-    const { fetching, fetched, borough_cause_dashboard_data } = this.props
+    const { fetching, fetched, borough_cause_dashboard_data, filterByAccidentCause } = this.props
     debugger
     return (
       <div>
@@ -26,6 +26,7 @@ class BoroughCauseDashboard extends Component {
           fetched={fetched}
           height={200}
           width={200}
+          filterByAccidentCause={filterByAccidentCause}
           borough_cause_dashboard_data={borough_cause_dashboard_data.causes} />
 
         <LineChart

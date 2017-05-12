@@ -56,3 +56,10 @@ export function fetchParallelCoordinatePlotData() {
       })
   }
 }
+
+export function filterByAccidentCause() {
+  console.log(`Just action triggered`)
+  return (dispatch) => {
+    console.log(`Click happened dispatching`)
+  }
+}

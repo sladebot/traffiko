@@ -17,6 +17,7 @@ class LabeledArc extends Arc {
       <g fill='#F5F5F5' stroke='black'>
         {super.render()}
         <text transform={labelTranslate}
+              onClick={this.props.onClick}
               textAnchor="middle"
               fill="black">
               {this.props.data.data.cause}

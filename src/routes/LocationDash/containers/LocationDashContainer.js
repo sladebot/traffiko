@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchParallelCoordinatePlotData, fetchHeatMapData, fetchAccidentCauseData, fetchBoroughCauseDashboard } from '../actions/heatMapActions'
-// import { fetchParallelCoordinatePlotData } from '../actions/parallelCoordinateActions'
+import { fetchParallelCoordinatePlotData, 
+  fetchHeatMapData, 
+  fetchAccidentCauseData, 
+  fetchBoroughCauseDashboard,
+  filterByAccidentCause
+ } from '../actions/heatMapActions'
 import HeatMapContainer from './HeatMapContainer'
 import CauseBarChart from '../components/CauseBarChart'
 import BoroughCauseDashboard from './BoroughCauseDashboard'
@@ -15,7 +19,7 @@ class LocationDash extends Component {
   }
 
   render() {
-    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched } = this.props
+    const { heatmap_data, accident_reasons_data, borough_cause_dashboard_data, fetching, fetched, filterByAccidentCause } = this.props
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--6-col">
@@ -35,6 +39,7 @@ class LocationDash extends Component {
                   fetching={fetching}
                   fetched={fetched}
                   borough_cause_dashboard_data={borough_cause_dashboard_data}
+                  filterByAccidentCause={filterByAccidentCause}
                   height={800}
                   width={600}
                   />
@@ -72,7 +77,8 @@ const mapStateToProps = ({ heatMap }) => {
 const actions = {
   fetchHeatMapData,
   fetchAccidentCauseData,
-  fetchBoroughCauseDashboard
+  fetchBoroughCauseDashboard,
+  filterByAccidentCause
 }
 
 export default connect(mapStateToProps, actions)(LocationDash)

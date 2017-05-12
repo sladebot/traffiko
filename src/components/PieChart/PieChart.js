@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit'
 import LabeledArc from './LabeledArc'
 
 
-const PieChart = ({ height, width, borough_cause_dashboard_data}) => {
+const PieChart = ({ height, width, borough_cause_dashboard_data, filterByAccidentCause}) => {
   const key = 'total'
   const allCount = borough_cause_dashboard_data.filter(o => o.cause == 'ALL')[0]
 
@@ -31,6 +31,7 @@ const PieChart = ({ height, width, borough_cause_dashboard_data}) => {
                 data={d}
                 innerRadius={innerRadius}
                 outerRadius={outerRadius}
+                onClick={filterByAccidentCause}
                 color={colors[i]} />
       )
     })
