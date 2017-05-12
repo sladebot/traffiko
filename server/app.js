@@ -85,6 +85,7 @@ if(project.env === 'development') {
   app.use('/', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')
     compiler.outputFileSystem.readFile(filename, (err, result) => {
+      debugger
       if(err) {
         return next(err)
       }

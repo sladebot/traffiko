@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Brush, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from 'recharts'
 import Spinner from 'react-spinkit'
 
+
 class CauseBarChart extends Component {
   _x(data) {
     return data.cause
@@ -47,7 +48,7 @@ class CauseBarChart extends Component {
             <Tooltip cursor={{fill: '#F5F5F5', fillOpacity: '0.5', stroke: '#FFFFFF'}} fill="#FFFFFF" stroke="#FFFFFF" itemStyle={{color: '#FFFFFF'}} wrapperStyle={{'background': '#757575'}} />
             <Legend verticalAlign="top" wrapperStyle={{lineHeight: '40px'}} />
             <ReferenceLine y={0} stroke='#004D40' onChange={(e) => {console.log('Brushing')}}/>
-            <Brush dataKey='cause' height={30} stroke="#FFFFFF"/>
+            <Brush dataKey='cause' height={30} stroke="white" fill="#212121"/>
             <Bar dataKey='total' fill='#FFFFFF' onClick={this._handleBarClick} />
           </BarChart>
       )

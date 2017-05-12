@@ -7,7 +7,7 @@ import { fetchParallelCoordinatePlotData,
   filterByAccidentCause
  } from '../actions/heatMapActions'
 import HeatMapContainer from './HeatMapContainer'
-import CauseBarChart from '../components/CauseBarChart'
+
 import BoroughCauseDashboard from './BoroughCauseDashboard'
 
 class LocationDash extends Component {
@@ -53,16 +53,10 @@ class LocationDash extends Component {
                   width={600}
                   />
             </div>
-            <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
-                <CauseBarChart
-                      title="Top 10 Causes of accidents"
-                      height={400}
-                      width={600}
-                      fetching={fetching}
-                      fetched={fetched}
-                      accident_reasons_data={accident_reasons_data}/>
-            </div>
           </div>  
+        </div>
+        <div className="mdl-cell mdl-cell--12-col mdl-color--grey-800">
+            <iframe src="http://localhost:3000/parallel.html" style={{height: 550, width: 1400, overflow: 'hidden'}} scrolling="no"></iframe>
         </div>
       </div>
     )

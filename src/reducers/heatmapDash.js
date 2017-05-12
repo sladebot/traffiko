@@ -27,6 +27,7 @@ export default function heatMapReducer(state=initialState, action) {
       }
     }
     case 'FETCH_CAUSE_BAR_DATA_FULFILLED': {
+      console.log(`Got data and updating cause data....`)
       return {
         ...state,
         fetching: false,
