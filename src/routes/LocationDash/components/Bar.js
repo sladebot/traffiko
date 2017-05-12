@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class Bar extends Component {
   render() {
-    const { index, xScaleFn, yScaleFn, width, height, fill="black", stroke="black", yMetric } = this.props
+    const { index, xScaleFn, yScaleFn, width, height, opacity, fill="black", stroke="black", yMetric } = this.props
     
     return (
       <rect
@@ -11,6 +11,7 @@ class Bar extends Component {
         width={width}
         height={height - yScaleFn(yMetric)}
         fill={fill}
+        opacity={opacity}
         stroke={stroke}
         />
     )

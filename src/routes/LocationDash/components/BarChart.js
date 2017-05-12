@@ -50,7 +50,7 @@ class BarChart extends Component {
       }
     })
 
-    return final
+    return final.sort((a, b) => a['total'] - b['total'])
 
   }
 
@@ -97,6 +97,16 @@ class BarChart extends Component {
     
     const transform='translate('+margin.left+','+margin.top+')'
     const transformXAxis=`translate(${margin.left}, ${margin.top + height})`
+
+      const colors = [
+        "white",
+        "#30D2EE",
+        "#ABC892",
+        "#FFD271",
+        "#C84C5F"
+      ]
+
+
     let foregroundRects = datasetBarSelected.map((d, i) => {
       return (
         <Bar 
@@ -107,8 +117,9 @@ class BarChart extends Component {
           yMetric={d[key]}
           width={(width/datasetBarSelected.length - barPadding)}
           height={height}
-          fill={"#F5F5F5"}
-          stroke={"#F5F5F5"}
+          fill={colors[i]}
+          opacity={1}
+          stroke={"transparent"}
         />
       )
     })

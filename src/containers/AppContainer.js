@@ -16,6 +16,7 @@ class AppContainer extends Component {
           <Route component={CoreLayout}>
             <Route path="/" component={Dash} />
             <Route path="/hypothesis" component={HypothesisDash} />
+            
           </Route>
         </Router>
       </Provider>

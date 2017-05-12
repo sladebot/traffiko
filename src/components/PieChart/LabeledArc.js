@@ -20,7 +20,7 @@ class LabeledArc extends Arc {
               onClick={this.props.onClick.bind(this, this.props.data.data.cause)}
               textAnchor="middle"
               stroke="transparent"
-              fill="#64B5F6">
+              fill="#FFFFFF">
               {this.props.data.data.cause.split("/")[0]}
         </text>
       </g>
