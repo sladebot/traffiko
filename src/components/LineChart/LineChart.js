@@ -8,7 +8,16 @@ class LineChart extends Component {
     const filtered = datasetLineChart
       .sort((a, b) => a['total'] - b['total'])
       .filter(d => d['cause'] == cause)
-    
+    const order = [
+      'STATEN ISLAND',
+      'BRONX',
+      'MANHATTAN',
+      'QUEENS',
+      'BROOKLYN'
+    ]
+
+    // const sorted  = order.map((i) => filtered.find((o) => o.borough === i));
+
     let result = {}
     filtered.map(data => {
       let borough = data['borough']
@@ -40,8 +49,9 @@ class LineChart extends Component {
         final.push(h)
       }
     })
-
-    return final
+    
+    let ordered = final.length > 0 ?  order.map((i) => final.find((o) => o.borough === i)) : final
+    return ordered
 
   }
 

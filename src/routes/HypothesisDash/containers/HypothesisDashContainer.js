@@ -75,29 +75,43 @@ class HypothesisDashContainer extends Component {
                 <div className="labelHeader">Top 10 Causes for Accidents</div>
               </div>
               <div className="mdl-cell mdl-cell--6-col" id="parallel">
-                  <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-color--grey-800 mdl-text-color--white info--table">
-                    <thead>
-                      <tr>
-                        <th>Borough</th>
-                        <th>Total Accidents</th>
-                        <th>Injured</th>
-                        <th>Killed</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {borough_info.map(d => {
-                        return (
-                          <tr>
-                            <td>{d['borough']}</td>
-                            <td>{d['total']}</td>
-                            <td>{d['injured']}</td>
-                            <td>{d['killed']}</td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                  <div className="labelHeader">Most Traffic Prone Boroughs in NYC</div>
+                <div className="mdl-grid">
+                  <div className="mdl-cell mdl-cell--12-col">
+                    <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-color--grey-800 mdl-text-color--white info--table">
+                      <thead>
+                        <tr>
+                          <th>Borough</th>
+                          <th>Total Accidents</th>
+                          <th>Injured</th>
+                          <th>Killed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {borough_info.map(d => {
+                          return (
+                            <tr>
+                              <td>{d['borough']}</td>
+                              <td>{d['total']}</td>
+                              <td>{d['injured']}</td>
+                              <td>{d['killed']}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                    <div className="labelHeader">Most Traffic Prone Boroughs in NYC</div>
+                  </div>
+                  <div className="mdl-cell mdl-cell--12-col">
+                    <div className="text mdl-text-color--white text-white insight--text mdl-color--grey-800">
+                      <div className="labelHeader">Inspiration & Insights</div>
+                      <div className="text-white" style={{padding: '20px'}}>
+                        We found that the major reason of accidents is Driver Inattention / Distraction as well as the 
+                        highest number of accidents occur in Brooklyn and Queens. We can use this information to spread awareness
+                        to reduce the number of accidents. That was the main inspiration for this data analysis project.
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
