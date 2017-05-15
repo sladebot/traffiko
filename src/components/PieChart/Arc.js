@@ -5,7 +5,8 @@ class Arc extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      clicked: false
+      clicked: false,
+      hovering: false
     }
     this.arc = d3.svg.arc()
   }
@@ -18,14 +19,6 @@ class Arc extends Component {
     console.log(`Clicked on Path`)
   }
 
-  // componentWillMount() {
-  //   this.updateD3(this.props)
-  // }
-
-  // componentWillReceiveProps(newProps) {
-  //   this.updateD3(newProps)
-  // }
-
   updateD3(innerRadius, outerRadius) {
     this.arc.innerRadius(innerRadius)
     this.arc.outerRadius(outerRadius)
@@ -35,11 +28,11 @@ class Arc extends Component {
     const { innerRadius, outerRadius } = this.props
     this.updateD3(innerRadius, outerRadius)
 
-    const fillColor = this.state.clicked ? '#1565C0' : this.props.color
-
     return <path d={this.arc(this.props.data)}
+                 onMouseEnter={(e) => {this.setState({hovering: true})}}
+                  onMouseLeave={(e) => {this.setState({hovering: false})}}
                  onClick={(e) => this.props.onClick(this.props.data.data.cause) || this.clickHandler.bind(this)}
-                 style={{fill: fillColor}}></path>
+                 style={{fill: this.state.hovering ? '#F5F5F5' : this.props.color}}></path>
   }
 }
 
